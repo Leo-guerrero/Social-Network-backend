@@ -1,15 +1,16 @@
-import express from "express";
-import cors from "cors";
+//----
+import express from 'express';
+import cors from 'cors';
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const port = process.env.PORT || 3000;
 
-app.get("/api/hello", (_req, res) => {
-  res.json({ message: "Hello from the backend!" });
+app.use(cors());
+
+app.get('/', (req, res) => {
+  res.send('Hello from backend!');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
