@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { PrismaClient } from './generated/prisma';
+import { PrismaClient } from '../generated/prisma';
 
 const app = express();
 const port = process.env.PORT || 3000;
