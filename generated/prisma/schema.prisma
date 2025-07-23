@@ -14,9 +14,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model users {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  name      String?
+  name      String
+  password  String
   createdAt DateTime @default(now())
+
+  profile profiles?
+  posts   posts[]
+
+  likes likes[]
+}
+
+model profiles {
+  userid Int     @id
+  bio    String?
+
+  user users @relation(fields: [userid], references: [id], onDelete: Cascade)
+}
+
+model posts {
+  id        Int      @id @default(autoincrement())
+  userid    Int
+  text      String?
+  createdAt DateTime @default(now())
+
+  poster users   @relation(fields: [userid], references: [id], onDelete: Cascade)
+  likes  likes[]
+}
+
+model likes {
+  id        Int      @id @default(autoincrement())
+  userid    Int
+  postid    Int
+  createdAt DateTime @default(now())
+
+  user users @relation(fields: [userid], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postid], references: [id], onDelete: Cascade)
+
+  @@unique([userid, postid])
 }

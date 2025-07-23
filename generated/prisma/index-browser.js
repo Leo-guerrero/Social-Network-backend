@@ -124,6 +124,26 @@ exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  password: 'password',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProfilesScalarFieldEnum = {
+  userid: 'userid',
+  bio: 'bio'
+};
+
+exports.Prisma.PostsScalarFieldEnum = {
+  id: 'id',
+  userid: 'userid',
+  text: 'text',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LikesScalarFieldEnum = {
+  id: 'id',
+  userid: 'userid',
+  postid: 'postid',
   createdAt: 'createdAt'
 };
 
@@ -144,7 +164,10 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  Users: 'Users'
+  users: 'users',
+  profiles: 'profiles',
+  posts: 'posts',
+  likes: 'likes'
 };
 
 /**
