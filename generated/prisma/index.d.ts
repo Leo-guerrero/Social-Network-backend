@@ -3447,6 +3447,7 @@ export namespace Prisma {
     userid: number | null
     text: string | null
     createdAt: Date | null
+    likedByUser: boolean | null
   }
 
   export type PostsMaxAggregateOutputType = {
@@ -3454,6 +3455,7 @@ export namespace Prisma {
     userid: number | null
     text: string | null
     createdAt: Date | null
+    likedByUser: boolean | null
   }
 
   export type PostsCountAggregateOutputType = {
@@ -3461,6 +3463,7 @@ export namespace Prisma {
     userid: number
     text: number
     createdAt: number
+    likedByUser: number
     _all: number
   }
 
@@ -3480,6 +3483,7 @@ export namespace Prisma {
     userid?: true
     text?: true
     createdAt?: true
+    likedByUser?: true
   }
 
   export type PostsMaxAggregateInputType = {
@@ -3487,6 +3491,7 @@ export namespace Prisma {
     userid?: true
     text?: true
     createdAt?: true
+    likedByUser?: true
   }
 
   export type PostsCountAggregateInputType = {
@@ -3494,6 +3499,7 @@ export namespace Prisma {
     userid?: true
     text?: true
     createdAt?: true
+    likedByUser?: true
     _all?: true
   }
 
@@ -3588,6 +3594,7 @@ export namespace Prisma {
     userid: number
     text: string | null
     createdAt: Date
+    likedByUser: boolean
     _count: PostsCountAggregateOutputType | null
     _avg: PostsAvgAggregateOutputType | null
     _sum: PostsSumAggregateOutputType | null
@@ -3614,6 +3621,7 @@ export namespace Prisma {
     userid?: boolean
     text?: boolean
     createdAt?: boolean
+    likedByUser?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
     likes?: boolean | posts$likesArgs<ExtArgs>
     _count?: boolean | PostsCountOutputTypeDefaultArgs<ExtArgs>
@@ -3624,6 +3632,7 @@ export namespace Prisma {
     userid?: boolean
     text?: boolean
     createdAt?: boolean
+    likedByUser?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["posts"]>
 
@@ -3632,6 +3641,7 @@ export namespace Prisma {
     userid?: boolean
     text?: boolean
     createdAt?: boolean
+    likedByUser?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["posts"]>
 
@@ -3640,9 +3650,10 @@ export namespace Prisma {
     userid?: boolean
     text?: boolean
     createdAt?: boolean
+    likedByUser?: boolean
   }
 
-  export type postsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userid" | "text" | "createdAt", ExtArgs["result"]["posts"]>
+  export type postsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userid" | "text" | "createdAt" | "likedByUser", ExtArgs["result"]["posts"]>
   export type postsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     poster?: boolean | usersDefaultArgs<ExtArgs>
     likes?: boolean | posts$likesArgs<ExtArgs>
@@ -3666,6 +3677,7 @@ export namespace Prisma {
       userid: number
       text: string | null
       createdAt: Date
+      likedByUser: boolean
     }, ExtArgs["result"]["posts"]>
     composites: {}
   }
@@ -4095,6 +4107,7 @@ export namespace Prisma {
     readonly userid: FieldRef<"posts", 'Int'>
     readonly text: FieldRef<"posts", 'String'>
     readonly createdAt: FieldRef<"posts", 'DateTime'>
+    readonly likedByUser: FieldRef<"posts", 'Boolean'>
   }
     
 
@@ -5665,7 +5678,8 @@ export namespace Prisma {
     id: 'id',
     userid: 'userid',
     text: 'text',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    likedByUser: 'likedByUser'
   };
 
   export type PostsScalarFieldEnum = (typeof PostsScalarFieldEnum)[keyof typeof PostsScalarFieldEnum]
@@ -5749,6 +5763,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -5882,6 +5903,7 @@ export namespace Prisma {
     userid?: IntFilter<"posts"> | number
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
+    likedByUser?: BoolFilter<"posts"> | boolean
     poster?: XOR<UsersScalarRelationFilter, usersWhereInput>
     likes?: LikesListRelationFilter
   }
@@ -5891,6 +5913,7 @@ export namespace Prisma {
     userid?: SortOrder
     text?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    likedByUser?: SortOrder
     poster?: usersOrderByWithRelationInput
     likes?: likesOrderByRelationAggregateInput
   }
@@ -5903,6 +5926,7 @@ export namespace Prisma {
     userid?: IntFilter<"posts"> | number
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
+    likedByUser?: BoolFilter<"posts"> | boolean
     poster?: XOR<UsersScalarRelationFilter, usersWhereInput>
     likes?: LikesListRelationFilter
   }, "id">
@@ -5912,6 +5936,7 @@ export namespace Prisma {
     userid?: SortOrder
     text?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    likedByUser?: SortOrder
     _count?: postsCountOrderByAggregateInput
     _avg?: postsAvgOrderByAggregateInput
     _max?: postsMaxOrderByAggregateInput
@@ -5927,6 +5952,7 @@ export namespace Prisma {
     userid?: IntWithAggregatesFilter<"posts"> | number
     text?: StringNullableWithAggregatesFilter<"posts"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"posts"> | Date | string
+    likedByUser?: BoolWithAggregatesFilter<"posts"> | boolean
   }
 
   export type likesWhereInput = {
@@ -6087,6 +6113,7 @@ export namespace Prisma {
   export type postsCreateInput = {
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
     poster: usersCreateNestedOneWithoutPostsInput
     likes?: likesCreateNestedManyWithoutPostInput
   }
@@ -6096,12 +6123,14 @@ export namespace Prisma {
     userid: number
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
     likes?: likesUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type postsUpdateInput = {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
     poster?: usersUpdateOneRequiredWithoutPostsNestedInput
     likes?: likesUpdateManyWithoutPostNestedInput
   }
@@ -6111,6 +6140,7 @@ export namespace Prisma {
     userid?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
     likes?: likesUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -6119,11 +6149,13 @@ export namespace Prisma {
     userid: number
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
   }
 
   export type postsUpdateManyMutationInput = {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type postsUncheckedUpdateManyInput = {
@@ -6131,6 +6163,7 @@ export namespace Prisma {
     userid?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type likesCreateInput = {
@@ -6385,11 +6418,17 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type postsCountOrderByAggregateInput = {
     id?: SortOrder
     userid?: SortOrder
     text?: SortOrder
     createdAt?: SortOrder
+    likedByUser?: SortOrder
   }
 
   export type postsAvgOrderByAggregateInput = {
@@ -6402,6 +6441,7 @@ export namespace Prisma {
     userid?: SortOrder
     text?: SortOrder
     createdAt?: SortOrder
+    likedByUser?: SortOrder
   }
 
   export type postsMinOrderByAggregateInput = {
@@ -6409,11 +6449,20 @@ export namespace Prisma {
     userid?: SortOrder
     text?: SortOrder
     createdAt?: SortOrder
+    likedByUser?: SortOrder
   }
 
   export type postsSumOrderByAggregateInput = {
     id?: SortOrder
     userid?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type PostsScalarRelationFilter = {
@@ -6629,6 +6678,10 @@ export namespace Prisma {
     connect?: likesWhereUniqueInput | likesWhereUniqueInput[]
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type usersUpdateOneRequiredWithoutPostsNestedInput = {
     create?: XOR<usersCreateWithoutPostsInput, usersUncheckedCreateWithoutPostsInput>
     connectOrCreate?: usersCreateOrConnectWithoutPostsInput
@@ -6829,6 +6882,19 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type profilesCreateWithoutUserInput = {
     bio?: string | null
   }
@@ -6845,6 +6911,7 @@ export namespace Prisma {
   export type postsCreateWithoutPosterInput = {
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
     likes?: likesCreateNestedManyWithoutPostInput
   }
 
@@ -6852,6 +6919,7 @@ export namespace Prisma {
     id?: number
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
     likes?: likesUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -6929,6 +6997,7 @@ export namespace Prisma {
     userid?: IntFilter<"posts"> | number
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
+    likedByUser?: BoolFilter<"posts"> | boolean
   }
 
   export type likesUpsertWithWhereUniqueWithoutUserInput = {
@@ -7129,6 +7198,7 @@ export namespace Prisma {
   export type postsCreateWithoutLikesInput = {
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
     poster: usersCreateNestedOneWithoutPostsInput
   }
 
@@ -7137,6 +7207,7 @@ export namespace Prisma {
     userid: number
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
   }
 
   export type postsCreateOrConnectWithoutLikesInput = {
@@ -7188,6 +7259,7 @@ export namespace Prisma {
   export type postsUpdateWithoutLikesInput = {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
     poster?: usersUpdateOneRequiredWithoutPostsNestedInput
   }
 
@@ -7196,12 +7268,14 @@ export namespace Prisma {
     userid?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type postsCreateManyPosterInput = {
     id?: number
     text?: string | null
     createdAt?: Date | string
+    likedByUser?: boolean
   }
 
   export type likesCreateManyUserInput = {
@@ -7213,6 +7287,7 @@ export namespace Prisma {
   export type postsUpdateWithoutPosterInput = {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
     likes?: likesUpdateManyWithoutPostNestedInput
   }
 
@@ -7220,6 +7295,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
     likes?: likesUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -7227,6 +7303,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type likesUpdateWithoutUserInput = {

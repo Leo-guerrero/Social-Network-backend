@@ -41,6 +41,7 @@ model posts {
   userid    Int   
   text      String?
   createdAt DateTime @default(now())
+  likedByUser Boolean @default(false)
 
   poster    users   @relation(fields: [userid], references: [id], onDelete: Cascade) 
   likes     likes[]

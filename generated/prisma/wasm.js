@@ -137,7 +137,8 @@ exports.Prisma.PostsScalarFieldEnum = {
   id: 'id',
   userid: 'userid',
   text: 'text',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  likedByUser: 'likedByUser'
 };
 
 exports.Prisma.LikesScalarFieldEnum = {

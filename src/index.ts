@@ -111,6 +111,11 @@ app.post('/CreatePost/:id', async (req, res) =>{
 app.get('/GetAllPosts', async (req, res) =>{
   const posts = await prisma.posts.findMany({
   include: {
+    likes: {
+      select: {
+        userid: true,
+      },
+    },
     poster: {
       select: {
         id: true,
@@ -143,6 +148,11 @@ app.get('/UserSpecific/:id', async (req, res) => {
         userid: userid,
       },
       include: {
+        likes: {
+          select:{
+            userid: true,
+          },
+        },
         poster: {
           select: {
             name: true, 
@@ -186,12 +196,26 @@ app.post('/LikeUnLike', async (req, res) => {
         },
       }
     });    
+
+    const setFalsePost = await prisma.posts.update({
+      where: {
+        id: postid,
+      },
+      data: {likedByUser: false}
+    });
   }
 
   if(!existingLike){
     const like_create = await prisma.likes.create({
       data: {userid: userid, postid: postid }
     })
+
+    const setTruePost = await prisma.posts.update({
+      where: {
+        id: postid,
+      },
+      data: {likedByUser: true}
+    });
   }
 
 });
@@ -205,4 +229,36 @@ app.get('/User/:id', async (req , res) => {
   });
 
   res.json(User);
+});
+
+
+app.get('/Get/Specific/Post/:id', async (req, res) => {
+  const postid = parseInt(req.params.id);
+
+  const post = await prisma.posts.findUnique({
+    where: {
+      id: postid,
+    },
+    include: {
+      poster: {
+        select: {
+          name: true,
+          id: true,
+        }
+      },
+      _count: {
+        select: {
+          likes: true,
+        },
+      },
+      likes: {
+        select: {
+          userid: true,
+        }
+      }
+    }
+  });
+
+
+  res.json(post);
 });
