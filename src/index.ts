@@ -108,35 +108,20 @@ app.post('/CreatePost/:id', async (req, res) =>{
     })
 });
 
-app.get('/GetAllPosts', async (req, res) =>{
+app.get('/GetAllPosts', async (req, res) => {
   const posts = await prisma.posts.findMany({
-  include: {
-    likes: {
-      select: {
-        userid: true,
-      },
+    where: { parentId: null },   // 🔑 exclude replies
+    include: {
+      poster: { select: { id: true, name: true } },
+      _count: { select: { likes: true } },
+      likes: { select: { userid: true } },
     },
-    poster: {
-      select: {
-        id: true,
-        name: true, 
-      },
-    },
-    _count: {
-      select: {
-        likes: true,
-      },
-    },
-  },
-  orderBy: {
-    createdAt: 'asc', 
-  },
-}
-    
-  );
+    orderBy: { createdAt: 'desc' }
+  });
 
   res.json(posts);
 });
+
 
 
 app.get('/UserSpecific/:id', async (req, res) => {
@@ -236,29 +221,91 @@ app.get('/Get/Specific/Post/:id', async (req, res) => {
   const postid = parseInt(req.params.id);
 
   const post = await prisma.posts.findUnique({
-    where: {
-      id: postid,
-    },
+    where: { id: postid },
     include: {
-      poster: {
-        select: {
-          name: true,
-          id: true,
-        }
-      },
-      _count: {
-        select: {
-          likes: true,
+      poster: { select: { id: true, name: true } },
+      _count: { select: { likes: true } },
+      likes: { select: { userid: true } },
+      replies: {
+        include: {
+          poster: { select: { id: true, name: true } },
+          _count: { select: { likes: true } },
+          likes: { select: { userid: true } },
         },
+        orderBy: { createdAt: 'asc' },
       },
-      likes: {
-        select: {
-          userid: true,
-        }
-      }
-    }
+    },
   });
 
-
   res.json(post);
+});
+
+
+//replies:
+
+//create a reply
+app.post('/replies', async (req, res) => {
+  const { userid, parentId, text } = req.body;
+
+  try {
+    const newReply = await prisma.posts.create({
+      data: { userid, text, parentId },
+      include: {
+        poster: { select: { id: true, name: true } },
+        _count: { select: { likes: true } },
+        likes: { select: { userid: true } },
+      },
+    });
+
+    res.json(newReply);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create reply" });
+  }
+});
+
+
+//get a reply
+app.get('/replies/:id', async (req, res) => {
+  const replyId = parseInt(req.params.id);
+
+  const reply = await prisma.posts.findUnique({
+    where: { id: replyId },
+    include: {
+      poster: { select: { id: true, name: true } },
+      _count: { select: { likes: true } },
+      likes: { select: { userid: true } },
+      parent: { select: { id: true, text: true } }, //so you know which post it's replying to
+    },
+  });
+
+  res.json(reply);
+});
+
+//list all replies
+app.get('/posts/:postId/replies', async (req, res) => {
+  const postId = parseInt(req.params.postId);
+
+  const replies = await prisma.posts.findMany({
+    where: { parentId: postId },
+    include: {
+      poster: { select: { id: true, name: true } },
+      _count: { select: { likes: true } },
+      likes: { select: { userid: true } },
+    },
+    orderBy: { createdAt: 'asc' }, //current I have it set to oldest -> newest
+  });
+
+  res.json(replies);
+});
+
+//delete a reply
+app.delete('/replies/:id', async (req, res) => {
+  const replyId = parseInt(req.params.id);
+
+  await prisma.posts.delete({
+    where: { id: replyId },
+  });
+
+  res.json({ message: 'Reply deleted' });
 });

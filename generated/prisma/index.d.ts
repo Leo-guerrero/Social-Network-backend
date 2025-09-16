@@ -1183,10 +1183,12 @@ export namespace Prisma {
 
   export type PostsCountOutputType = {
     likes: number
+    replies: number
   }
 
   export type PostsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     likes?: boolean | PostsCountOutputTypeCountLikesArgs
+    replies?: boolean | PostsCountOutputTypeCountRepliesArgs
   }
 
   // Custom InputTypes
@@ -1205,6 +1207,13 @@ export namespace Prisma {
    */
   export type PostsCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: likesWhereInput
+  }
+
+  /**
+   * PostsCountOutputType without action
+   */
+  export type PostsCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: postsWhereInput
   }
 
 
@@ -3435,11 +3444,13 @@ export namespace Prisma {
   export type PostsAvgAggregateOutputType = {
     id: number | null
     userid: number | null
+    parentId: number | null
   }
 
   export type PostsSumAggregateOutputType = {
     id: number | null
     userid: number | null
+    parentId: number | null
   }
 
   export type PostsMinAggregateOutputType = {
@@ -3448,6 +3459,7 @@ export namespace Prisma {
     text: string | null
     createdAt: Date | null
     likedByUser: boolean | null
+    parentId: number | null
   }
 
   export type PostsMaxAggregateOutputType = {
@@ -3456,6 +3468,7 @@ export namespace Prisma {
     text: string | null
     createdAt: Date | null
     likedByUser: boolean | null
+    parentId: number | null
   }
 
   export type PostsCountAggregateOutputType = {
@@ -3464,6 +3477,7 @@ export namespace Prisma {
     text: number
     createdAt: number
     likedByUser: number
+    parentId: number
     _all: number
   }
 
@@ -3471,11 +3485,13 @@ export namespace Prisma {
   export type PostsAvgAggregateInputType = {
     id?: true
     userid?: true
+    parentId?: true
   }
 
   export type PostsSumAggregateInputType = {
     id?: true
     userid?: true
+    parentId?: true
   }
 
   export type PostsMinAggregateInputType = {
@@ -3484,6 +3500,7 @@ export namespace Prisma {
     text?: true
     createdAt?: true
     likedByUser?: true
+    parentId?: true
   }
 
   export type PostsMaxAggregateInputType = {
@@ -3492,6 +3509,7 @@ export namespace Prisma {
     text?: true
     createdAt?: true
     likedByUser?: true
+    parentId?: true
   }
 
   export type PostsCountAggregateInputType = {
@@ -3500,6 +3518,7 @@ export namespace Prisma {
     text?: true
     createdAt?: true
     likedByUser?: true
+    parentId?: true
     _all?: true
   }
 
@@ -3595,6 +3614,7 @@ export namespace Prisma {
     text: string | null
     createdAt: Date
     likedByUser: boolean
+    parentId: number | null
     _count: PostsCountAggregateOutputType | null
     _avg: PostsAvgAggregateOutputType | null
     _sum: PostsSumAggregateOutputType | null
@@ -3622,8 +3642,11 @@ export namespace Prisma {
     text?: boolean
     createdAt?: boolean
     likedByUser?: boolean
+    parentId?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
     likes?: boolean | posts$likesArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
+    replies?: boolean | posts$repliesArgs<ExtArgs>
     _count?: boolean | PostsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["posts"]>
 
@@ -3633,7 +3656,9 @@ export namespace Prisma {
     text?: boolean
     createdAt?: boolean
     likedByUser?: boolean
+    parentId?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
   }, ExtArgs["result"]["posts"]>
 
   export type postsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3642,7 +3667,9 @@ export namespace Prisma {
     text?: boolean
     createdAt?: boolean
     likedByUser?: boolean
+    parentId?: boolean
     poster?: boolean | usersDefaultArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
   }, ExtArgs["result"]["posts"]>
 
   export type postsSelectScalar = {
@@ -3651,19 +3678,24 @@ export namespace Prisma {
     text?: boolean
     createdAt?: boolean
     likedByUser?: boolean
+    parentId?: boolean
   }
 
-  export type postsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userid" | "text" | "createdAt" | "likedByUser", ExtArgs["result"]["posts"]>
+  export type postsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userid" | "text" | "createdAt" | "likedByUser" | "parentId", ExtArgs["result"]["posts"]>
   export type postsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     poster?: boolean | usersDefaultArgs<ExtArgs>
     likes?: boolean | posts$likesArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
+    replies?: boolean | posts$repliesArgs<ExtArgs>
     _count?: boolean | PostsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type postsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     poster?: boolean | usersDefaultArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
   }
   export type postsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     poster?: boolean | usersDefaultArgs<ExtArgs>
+    parent?: boolean | posts$parentArgs<ExtArgs>
   }
 
   export type $postsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3671,6 +3703,8 @@ export namespace Prisma {
     objects: {
       poster: Prisma.$usersPayload<ExtArgs>
       likes: Prisma.$likesPayload<ExtArgs>[]
+      parent: Prisma.$postsPayload<ExtArgs> | null
+      replies: Prisma.$postsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3678,6 +3712,7 @@ export namespace Prisma {
       text: string | null
       createdAt: Date
       likedByUser: boolean
+      parentId: number | null
     }, ExtArgs["result"]["posts"]>
     composites: {}
   }
@@ -4074,6 +4109,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     poster<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     likes<T extends posts$likesArgs<ExtArgs> = {}>(args?: Subset<T, posts$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    parent<T extends posts$parentArgs<ExtArgs> = {}>(args?: Subset<T, posts$parentArgs<ExtArgs>>): Prisma__postsClient<$Result.GetResult<Prisma.$postsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends posts$repliesArgs<ExtArgs> = {}>(args?: Subset<T, posts$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$postsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4108,6 +4145,7 @@ export namespace Prisma {
     readonly text: FieldRef<"posts", 'String'>
     readonly createdAt: FieldRef<"posts", 'DateTime'>
     readonly likedByUser: FieldRef<"posts", 'Boolean'>
+    readonly parentId: FieldRef<"posts", 'Int'>
   }
     
 
@@ -4525,6 +4563,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LikesScalarFieldEnum | LikesScalarFieldEnum[]
+  }
+
+  /**
+   * posts.parent
+   */
+  export type posts$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posts
+     */
+    select?: postsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posts
+     */
+    omit?: postsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: postsInclude<ExtArgs> | null
+    where?: postsWhereInput
+  }
+
+  /**
+   * posts.replies
+   */
+  export type posts$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posts
+     */
+    select?: postsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posts
+     */
+    omit?: postsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: postsInclude<ExtArgs> | null
+    where?: postsWhereInput
+    orderBy?: postsOrderByWithRelationInput | postsOrderByWithRelationInput[]
+    cursor?: postsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostsScalarFieldEnum | PostsScalarFieldEnum[]
   }
 
   /**
@@ -5679,7 +5760,8 @@ export namespace Prisma {
     userid: 'userid',
     text: 'text',
     createdAt: 'createdAt',
-    likedByUser: 'likedByUser'
+    likedByUser: 'likedByUser',
+    parentId: 'parentId'
   };
 
   export type PostsScalarFieldEnum = (typeof PostsScalarFieldEnum)[keyof typeof PostsScalarFieldEnum]
@@ -5904,8 +5986,11 @@ export namespace Prisma {
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
     likedByUser?: BoolFilter<"posts"> | boolean
+    parentId?: IntNullableFilter<"posts"> | number | null
     poster?: XOR<UsersScalarRelationFilter, usersWhereInput>
     likes?: LikesListRelationFilter
+    parent?: XOR<PostsNullableScalarRelationFilter, postsWhereInput> | null
+    replies?: PostsListRelationFilter
   }
 
   export type postsOrderByWithRelationInput = {
@@ -5914,8 +5999,11 @@ export namespace Prisma {
     text?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     likedByUser?: SortOrder
+    parentId?: SortOrderInput | SortOrder
     poster?: usersOrderByWithRelationInput
     likes?: likesOrderByRelationAggregateInput
+    parent?: postsOrderByWithRelationInput
+    replies?: postsOrderByRelationAggregateInput
   }
 
   export type postsWhereUniqueInput = Prisma.AtLeast<{
@@ -5927,8 +6015,11 @@ export namespace Prisma {
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
     likedByUser?: BoolFilter<"posts"> | boolean
+    parentId?: IntNullableFilter<"posts"> | number | null
     poster?: XOR<UsersScalarRelationFilter, usersWhereInput>
     likes?: LikesListRelationFilter
+    parent?: XOR<PostsNullableScalarRelationFilter, postsWhereInput> | null
+    replies?: PostsListRelationFilter
   }, "id">
 
   export type postsOrderByWithAggregationInput = {
@@ -5937,6 +6028,7 @@ export namespace Prisma {
     text?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     likedByUser?: SortOrder
+    parentId?: SortOrderInput | SortOrder
     _count?: postsCountOrderByAggregateInput
     _avg?: postsAvgOrderByAggregateInput
     _max?: postsMaxOrderByAggregateInput
@@ -5953,6 +6045,7 @@ export namespace Prisma {
     text?: StringNullableWithAggregatesFilter<"posts"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"posts"> | Date | string
     likedByUser?: BoolWithAggregatesFilter<"posts"> | boolean
+    parentId?: IntNullableWithAggregatesFilter<"posts"> | number | null
   }
 
   export type likesWhereInput = {
@@ -6116,6 +6209,8 @@ export namespace Prisma {
     likedByUser?: boolean
     poster: usersCreateNestedOneWithoutPostsInput
     likes?: likesCreateNestedManyWithoutPostInput
+    parent?: postsCreateNestedOneWithoutRepliesInput
+    replies?: postsCreateNestedManyWithoutParentInput
   }
 
   export type postsUncheckedCreateInput = {
@@ -6124,7 +6219,9 @@ export namespace Prisma {
     text?: string | null
     createdAt?: Date | string
     likedByUser?: boolean
+    parentId?: number | null
     likes?: likesUncheckedCreateNestedManyWithoutPostInput
+    replies?: postsUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type postsUpdateInput = {
@@ -6133,6 +6230,8 @@ export namespace Prisma {
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
     poster?: usersUpdateOneRequiredWithoutPostsNestedInput
     likes?: likesUpdateManyWithoutPostNestedInput
+    parent?: postsUpdateOneWithoutRepliesNestedInput
+    replies?: postsUpdateManyWithoutParentNestedInput
   }
 
   export type postsUncheckedUpdateInput = {
@@ -6141,7 +6240,9 @@ export namespace Prisma {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
     likes?: likesUncheckedUpdateManyWithoutPostNestedInput
+    replies?: postsUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type postsCreateManyInput = {
@@ -6150,6 +6251,7 @@ export namespace Prisma {
     text?: string | null
     createdAt?: Date | string
     likedByUser?: boolean
+    parentId?: number | null
   }
 
   export type postsUpdateManyMutationInput = {
@@ -6164,6 +6266,7 @@ export namespace Prisma {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type likesCreateInput = {
@@ -6423,17 +6526,35 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type PostsNullableScalarRelationFilter = {
+    is?: postsWhereInput | null
+    isNot?: postsWhereInput | null
+  }
+
   export type postsCountOrderByAggregateInput = {
     id?: SortOrder
     userid?: SortOrder
     text?: SortOrder
     createdAt?: SortOrder
     likedByUser?: SortOrder
+    parentId?: SortOrder
   }
 
   export type postsAvgOrderByAggregateInput = {
     id?: SortOrder
     userid?: SortOrder
+    parentId?: SortOrder
   }
 
   export type postsMaxOrderByAggregateInput = {
@@ -6442,6 +6563,7 @@ export namespace Prisma {
     text?: SortOrder
     createdAt?: SortOrder
     likedByUser?: SortOrder
+    parentId?: SortOrder
   }
 
   export type postsMinOrderByAggregateInput = {
@@ -6450,11 +6572,13 @@ export namespace Prisma {
     text?: SortOrder
     createdAt?: SortOrder
     likedByUser?: SortOrder
+    parentId?: SortOrder
   }
 
   export type postsSumOrderByAggregateInput = {
     id?: SortOrder
     userid?: SortOrder
+    parentId?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -6463,6 +6587,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type PostsScalarRelationFilter = {
@@ -6671,11 +6811,31 @@ export namespace Prisma {
     connect?: likesWhereUniqueInput | likesWhereUniqueInput[]
   }
 
+  export type postsCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<postsCreateWithoutRepliesInput, postsUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: postsCreateOrConnectWithoutRepliesInput
+    connect?: postsWhereUniqueInput
+  }
+
+  export type postsCreateNestedManyWithoutParentInput = {
+    create?: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput> | postsCreateWithoutParentInput[] | postsUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: postsCreateOrConnectWithoutParentInput | postsCreateOrConnectWithoutParentInput[]
+    createMany?: postsCreateManyParentInputEnvelope
+    connect?: postsWhereUniqueInput | postsWhereUniqueInput[]
+  }
+
   export type likesUncheckedCreateNestedManyWithoutPostInput = {
     create?: XOR<likesCreateWithoutPostInput, likesUncheckedCreateWithoutPostInput> | likesCreateWithoutPostInput[] | likesUncheckedCreateWithoutPostInput[]
     connectOrCreate?: likesCreateOrConnectWithoutPostInput | likesCreateOrConnectWithoutPostInput[]
     createMany?: likesCreateManyPostInputEnvelope
     connect?: likesWhereUniqueInput | likesWhereUniqueInput[]
+  }
+
+  export type postsUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput> | postsCreateWithoutParentInput[] | postsUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: postsCreateOrConnectWithoutParentInput | postsCreateOrConnectWithoutParentInput[]
+    createMany?: postsCreateManyParentInputEnvelope
+    connect?: postsWhereUniqueInput | postsWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -6704,6 +6864,38 @@ export namespace Prisma {
     deleteMany?: likesScalarWhereInput | likesScalarWhereInput[]
   }
 
+  export type postsUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<postsCreateWithoutRepliesInput, postsUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: postsCreateOrConnectWithoutRepliesInput
+    upsert?: postsUpsertWithoutRepliesInput
+    disconnect?: postsWhereInput | boolean
+    delete?: postsWhereInput | boolean
+    connect?: postsWhereUniqueInput
+    update?: XOR<XOR<postsUpdateToOneWithWhereWithoutRepliesInput, postsUpdateWithoutRepliesInput>, postsUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type postsUpdateManyWithoutParentNestedInput = {
+    create?: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput> | postsCreateWithoutParentInput[] | postsUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: postsCreateOrConnectWithoutParentInput | postsCreateOrConnectWithoutParentInput[]
+    upsert?: postsUpsertWithWhereUniqueWithoutParentInput | postsUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: postsCreateManyParentInputEnvelope
+    set?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    disconnect?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    delete?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    connect?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    update?: postsUpdateWithWhereUniqueWithoutParentInput | postsUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: postsUpdateManyWithWhereWithoutParentInput | postsUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: postsScalarWhereInput | postsScalarWhereInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type likesUncheckedUpdateManyWithoutPostNestedInput = {
     create?: XOR<likesCreateWithoutPostInput, likesUncheckedCreateWithoutPostInput> | likesCreateWithoutPostInput[] | likesUncheckedCreateWithoutPostInput[]
     connectOrCreate?: likesCreateOrConnectWithoutPostInput | likesCreateOrConnectWithoutPostInput[]
@@ -6716,6 +6908,20 @@ export namespace Prisma {
     update?: likesUpdateWithWhereUniqueWithoutPostInput | likesUpdateWithWhereUniqueWithoutPostInput[]
     updateMany?: likesUpdateManyWithWhereWithoutPostInput | likesUpdateManyWithWhereWithoutPostInput[]
     deleteMany?: likesScalarWhereInput | likesScalarWhereInput[]
+  }
+
+  export type postsUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput> | postsCreateWithoutParentInput[] | postsUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: postsCreateOrConnectWithoutParentInput | postsCreateOrConnectWithoutParentInput[]
+    upsert?: postsUpsertWithWhereUniqueWithoutParentInput | postsUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: postsCreateManyParentInputEnvelope
+    set?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    disconnect?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    delete?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    connect?: postsWhereUniqueInput | postsWhereUniqueInput[]
+    update?: postsUpdateWithWhereUniqueWithoutParentInput | postsUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: postsUpdateManyWithWhereWithoutParentInput | postsUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: postsScalarWhereInput | postsScalarWhereInput[]
   }
 
   export type usersCreateNestedOneWithoutLikesInput = {
@@ -6895,6 +7101,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type profilesCreateWithoutUserInput = {
     bio?: string | null
   }
@@ -6913,6 +7146,8 @@ export namespace Prisma {
     createdAt?: Date | string
     likedByUser?: boolean
     likes?: likesCreateNestedManyWithoutPostInput
+    parent?: postsCreateNestedOneWithoutRepliesInput
+    replies?: postsCreateNestedManyWithoutParentInput
   }
 
   export type postsUncheckedCreateWithoutPosterInput = {
@@ -6920,7 +7155,9 @@ export namespace Prisma {
     text?: string | null
     createdAt?: Date | string
     likedByUser?: boolean
+    parentId?: number | null
     likes?: likesUncheckedCreateNestedManyWithoutPostInput
+    replies?: postsUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type postsCreateOrConnectWithoutPosterInput = {
@@ -6998,6 +7235,7 @@ export namespace Prisma {
     text?: StringNullableFilter<"posts"> | string | null
     createdAt?: DateTimeFilter<"posts"> | Date | string
     likedByUser?: BoolFilter<"posts"> | boolean
+    parentId?: IntNullableFilter<"posts"> | number | null
   }
 
   export type likesUpsertWithWhereUniqueWithoutUserInput = {
@@ -7125,6 +7363,59 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type postsCreateWithoutRepliesInput = {
+    text?: string | null
+    createdAt?: Date | string
+    likedByUser?: boolean
+    poster: usersCreateNestedOneWithoutPostsInput
+    likes?: likesCreateNestedManyWithoutPostInput
+    parent?: postsCreateNestedOneWithoutRepliesInput
+  }
+
+  export type postsUncheckedCreateWithoutRepliesInput = {
+    id?: number
+    userid: number
+    text?: string | null
+    createdAt?: Date | string
+    likedByUser?: boolean
+    parentId?: number | null
+    likes?: likesUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type postsCreateOrConnectWithoutRepliesInput = {
+    where: postsWhereUniqueInput
+    create: XOR<postsCreateWithoutRepliesInput, postsUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type postsCreateWithoutParentInput = {
+    text?: string | null
+    createdAt?: Date | string
+    likedByUser?: boolean
+    poster: usersCreateNestedOneWithoutPostsInput
+    likes?: likesCreateNestedManyWithoutPostInput
+    replies?: postsCreateNestedManyWithoutParentInput
+  }
+
+  export type postsUncheckedCreateWithoutParentInput = {
+    id?: number
+    userid: number
+    text?: string | null
+    createdAt?: Date | string
+    likedByUser?: boolean
+    likes?: likesUncheckedCreateNestedManyWithoutPostInput
+    replies?: postsUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type postsCreateOrConnectWithoutParentInput = {
+    where: postsWhereUniqueInput
+    create: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput>
+  }
+
+  export type postsCreateManyParentInputEnvelope = {
+    data: postsCreateManyParentInput | postsCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type usersUpsertWithoutPostsInput = {
     update: XOR<usersUpdateWithoutPostsInput, usersUncheckedUpdateWithoutPostsInput>
     create: XOR<usersCreateWithoutPostsInput, usersUncheckedCreateWithoutPostsInput>
@@ -7171,6 +7462,52 @@ export namespace Prisma {
     data: XOR<likesUpdateManyMutationInput, likesUncheckedUpdateManyWithoutPostInput>
   }
 
+  export type postsUpsertWithoutRepliesInput = {
+    update: XOR<postsUpdateWithoutRepliesInput, postsUncheckedUpdateWithoutRepliesInput>
+    create: XOR<postsCreateWithoutRepliesInput, postsUncheckedCreateWithoutRepliesInput>
+    where?: postsWhereInput
+  }
+
+  export type postsUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: postsWhereInput
+    data: XOR<postsUpdateWithoutRepliesInput, postsUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type postsUpdateWithoutRepliesInput = {
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    poster?: usersUpdateOneRequiredWithoutPostsNestedInput
+    likes?: likesUpdateManyWithoutPostNestedInput
+    parent?: postsUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type postsUncheckedUpdateWithoutRepliesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
+    likes?: likesUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type postsUpsertWithWhereUniqueWithoutParentInput = {
+    where: postsWhereUniqueInput
+    update: XOR<postsUpdateWithoutParentInput, postsUncheckedUpdateWithoutParentInput>
+    create: XOR<postsCreateWithoutParentInput, postsUncheckedCreateWithoutParentInput>
+  }
+
+  export type postsUpdateWithWhereUniqueWithoutParentInput = {
+    where: postsWhereUniqueInput
+    data: XOR<postsUpdateWithoutParentInput, postsUncheckedUpdateWithoutParentInput>
+  }
+
+  export type postsUpdateManyWithWhereWithoutParentInput = {
+    where: postsScalarWhereInput
+    data: XOR<postsUpdateManyMutationInput, postsUncheckedUpdateManyWithoutParentInput>
+  }
+
   export type usersCreateWithoutLikesInput = {
     email: string
     name: string
@@ -7200,6 +7537,8 @@ export namespace Prisma {
     createdAt?: Date | string
     likedByUser?: boolean
     poster: usersCreateNestedOneWithoutPostsInput
+    parent?: postsCreateNestedOneWithoutRepliesInput
+    replies?: postsCreateNestedManyWithoutParentInput
   }
 
   export type postsUncheckedCreateWithoutLikesInput = {
@@ -7208,6 +7547,8 @@ export namespace Prisma {
     text?: string | null
     createdAt?: Date | string
     likedByUser?: boolean
+    parentId?: number | null
+    replies?: postsUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type postsCreateOrConnectWithoutLikesInput = {
@@ -7261,6 +7602,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
     poster?: usersUpdateOneRequiredWithoutPostsNestedInput
+    parent?: postsUpdateOneWithoutRepliesNestedInput
+    replies?: postsUpdateManyWithoutParentNestedInput
   }
 
   export type postsUncheckedUpdateWithoutLikesInput = {
@@ -7269,6 +7612,8 @@ export namespace Prisma {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
+    replies?: postsUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type postsCreateManyPosterInput = {
@@ -7276,6 +7621,7 @@ export namespace Prisma {
     text?: string | null
     createdAt?: Date | string
     likedByUser?: boolean
+    parentId?: number | null
   }
 
   export type likesCreateManyUserInput = {
@@ -7289,6 +7635,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
     likes?: likesUpdateManyWithoutPostNestedInput
+    parent?: postsUpdateOneWithoutRepliesNestedInput
+    replies?: postsUpdateManyWithoutParentNestedInput
   }
 
   export type postsUncheckedUpdateWithoutPosterInput = {
@@ -7296,7 +7644,9 @@ export namespace Prisma {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
     likes?: likesUncheckedUpdateManyWithoutPostNestedInput
+    replies?: postsUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type postsUncheckedUpdateManyWithoutPosterInput = {
@@ -7304,6 +7654,7 @@ export namespace Prisma {
     text?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type likesUpdateWithoutUserInput = {
@@ -7329,6 +7680,14 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type postsCreateManyParentInput = {
+    id?: number
+    userid: number
+    text?: string | null
+    createdAt?: Date | string
+    likedByUser?: boolean
+  }
+
   export type likesUpdateWithoutPostInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutLikesNestedInput
@@ -7344,6 +7703,33 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userid?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type postsUpdateWithoutParentInput = {
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    poster?: usersUpdateOneRequiredWithoutPostsNestedInput
+    likes?: likesUpdateManyWithoutPostNestedInput
+    replies?: postsUpdateManyWithoutParentNestedInput
+  }
+
+  export type postsUncheckedUpdateWithoutParentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
+    likes?: likesUncheckedUpdateManyWithoutPostNestedInput
+    replies?: postsUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type postsUncheckedUpdateManyWithoutParentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likedByUser?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

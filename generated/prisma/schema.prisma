@@ -43,6 +43,15 @@ model posts {
 
   poster users   @relation(fields: [userid], references: [id], onDelete: Cascade)
   likes  likes[]
+
+  //replies section
+  parentId Int? //this is nullable so we can check if is or is not null original post
+
+  //the post this belongs to if this is a reply
+  //"PostReplies" is the name of the relation
+  parent  posts?  @relation("PostReplies", fields: [parentId], references: [id])
+  //all replies to this post
+  replies posts[] @relation("PostReplies")
 }
 
 model likes {
