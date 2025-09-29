@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '../generated/prisma';
+import { version } from 'os';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -308,4 +309,40 @@ app.delete('/replies/:id', async (req, res) => {
   });
 
   res.json({ message: 'Reply deleted' });
+});
+app.post('/runCode', async (req, res) => {
+  const {language, code} = req.body;
+  const start = performance.now();
+  try {
+    const PISTOOOONN = await fetch("https://emkc.org/api/v2/piston/execute", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      language: language,
+      version: "*",
+      files: [
+        {
+          content: code,
+        },
+      ],
+    }),
+  });
+
+  const PistonOUTPUT = await PISTOOOONN.json();
+  const end = performance.now();
+  res.json({
+    output: PistonOUTPUT.run?.output || PistonOUTPUT.run?.stderr || "NOTHING",
+    runtime: end - start,
+    codeTime: PistonOUTPUT.run?.wall_time,
+  });
+
+  } catch(err){
+    console.error("ERROR ERROR", err);
+    res.status(500).json({error: "ERROR RUNNING TS!"});
+  }
+  
+
+
 });
