@@ -2,9 +2,21 @@ import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '../generated/prisma';
 import { version } from 'os';
+import { S3Client, GetObjectCommand, PutObjectAclCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { v4 as uuidv4 } from "uuid";
+import multer from 'multer';
+import { profile } from 'console';
+const upload = multer();
+
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID || "";
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || "";
+
+const s3 = new S3Client({ region: process.env.AWS_REGION, credentials: { accessKeyId, secretAccessKey } });
 
 const prisma = new PrismaClient();
 
@@ -102,10 +114,16 @@ app.listen(port, () => {
 
 app.post('/CreatePost/:id', async (req, res) =>{
     const userid = parseInt(req.params.id);
-    const {text} = req.body;
+    const {text, imageURL} = req.body;
+    
+    
+    
+
+    
+    
 
     const post = await prisma.posts.create({
-      data: { userid: userid, text: text},
+      data: { userid: userid, text: text, imageURL: imageURL},
     })
 });
 
@@ -113,14 +131,26 @@ app.get('/GetAllPosts', async (req, res) => {
   const posts = await prisma.posts.findMany({
     where: { parentId: null },   // 🔑 exclude replies
     include: {
-      poster: { select: { id: true, name: true } },
+      poster: { select: { id: true, name: true, profileURL:true } },
       _count: { select: { likes: true } },
       likes: { select: { userid: true } },
     },
     orderBy: { createdAt: 'desc' }
   });
 
-  res.json(posts);
+  const transformedPosts = await Promise.all(
+    posts.map(async (post) => ({
+      ...post,
+      imageURL: await getImageURL(post.imageURL),
+      
+      poster: {
+        ...post.poster,
+        profileURL: await getImageURL(post.poster.profileURL) // ✅ now it's the actual string
+      }
+    }))
+  );
+
+  res.json(transformedPosts);
 });
 
 
@@ -346,3 +376,90 @@ app.post('/runCode', async (req, res) => {
 
 
 });
+
+const getImageURL = async (filename: string) => {
+
+  if(filename == ""){
+    return "";
+  }
+  const command = new GetObjectCommand({
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: filename,
+  });
+  const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+  return url;
+}
+
+app.get('/get/image/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId);
+  const user = await prisma.users.findUnique({
+    where: {
+      id: userId, 
+      
+    }, 
+    select: {
+      profileURL: true,
+    },
+  });
+  const filename = user?.profileURL || "";
+
+  const result = await getImageURL(filename);
+  
+  res.json({url: result});
+});
+
+app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<void> => {
+
+  const userid = parseInt(req.params.userId);
+  try {
+
+    const file = req.file; 
+    if (!file) res.status(400).json({ error: "No file uploaded" });
+    const uniqueFilename = `${uuidv4()}-${file?.originalname}`
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: uniqueFilename,
+      Body: file?.buffer, 
+      ContentType: file?.mimetype,
+    });
+
+    await s3.send(command);
+
+    const updatedUser = await prisma.users.update({
+      where: { id: userid },
+      data: { profileURL: uniqueFilename },
+      select: { id: true, profileURL: true },
+    });
+
+    res.json({ key: uniqueFilename });
+  } catch(err) {
+
+  }
+  
+});
+
+app.post('/put/image/forPost', upload.single("file"), async (req, res) => {
+  console.log("HELLO????");
+  try {
+    const file = req.file; 
+    if (!file) res.status(400).json({ error: "No file uploaded" });
+    const uniqueFilename = `${uuidv4()}-${file?.originalname}`
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: uniqueFilename,
+      Body: file?.buffer, 
+      ContentType: file?.mimetype,
+    });
+
+    await s3.send(command);
+
+    console.log("✅ Uploaded file:", uniqueFilename);
+    res.json({filename: uniqueFilename});
+
+  } catch (error){
+    console.log("bro???");
+  }
+});
+

@@ -15,11 +15,12 @@ datasource db {
 }
 
 model users {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  password  String
-  createdAt DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String
+  password   String
+  createdAt  DateTime @default(now())
+  profileURL String   @default("DefualtNoImageProfile.png")
 
   profile profiles?
   posts   posts[]
@@ -40,6 +41,7 @@ model posts {
   text        String?
   createdAt   DateTime @default(now())
   likedByUser Boolean  @default(false)
+  imageURL    String   @default("")
 
   poster users   @relation(fields: [userid], references: [id], onDelete: Cascade)
   likes  likes[]

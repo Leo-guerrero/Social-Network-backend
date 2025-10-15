@@ -125,7 +125,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   email: 'email',
   name: 'name',
   password: 'password',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  profileURL: 'profileURL'
 };
 
 exports.Prisma.ProfilesScalarFieldEnum = {
@@ -139,6 +140,7 @@ exports.Prisma.PostsScalarFieldEnum = {
   text: 'text',
   createdAt: 'createdAt',
   likedByUser: 'likedByUser',
+  imageURL: 'imageURL',
   parentId: 'parentId'
 };
 
