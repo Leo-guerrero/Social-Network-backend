@@ -112,18 +112,40 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-app.post('/CreatePost/:id', async (req, res) =>{
+app.post('/CreatePost/:id', upload.single('file'), async (req, res) =>{
     const userid = parseInt(req.params.id);
-    const {text, imageURL} = req.body;
-    
-    
+
+    const file = req.file;
+    const {text} = req.body;
+
+    let uniqueFilename = "";
+    if(file){
+
+      let contentType = file?.mimetype;
+      const ext = file.originalname.split(".").pop()?.toLowerCase();
+
+      if(ext == "mp4"){
+        contentType = "video/mp4";
+      }
+      
+      uniqueFilename = `${uuidv4()}-${file?.originalname}`
+
+      const command = new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: uniqueFilename,
+        Body: file?.buffer, 
+        ContentType: contentType,
+      });
     
 
-    
-    
+      await s3.send(command);
 
+    console.log("✅ Uploaded file:", uniqueFilename);
+    }
+    res.json({filename: uniqueFilename});
+    
     const post = await prisma.posts.create({
-      data: { userid: userid, text: text, imageURL: imageURL},
+      data: { userid: userid, text: text, imageURL: uniqueFilename},
     })
 });
 
@@ -150,6 +172,8 @@ app.get('/GetAllPosts', async (req, res) => {
     }))
   );
 
+  
+
   res.json(transformedPosts);
 });
 
@@ -172,6 +196,7 @@ app.get('/UserSpecific/:id', async (req, res) => {
         poster: {
           select: {
             name: true, 
+            profileURL:true,
           },
         },
         _count: {
@@ -179,12 +204,27 @@ app.get('/UserSpecific/:id', async (req, res) => {
             likes: true,
           },
         },
-      }
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
+
+    const transformedPosts = await Promise.all(
+    posts.map(async (post) => ({
+      ...post,
+      imageURL: await getImageURL(post.imageURL),
+      
+      poster: {
+        ...post.poster,
+        profileURL: await getImageURL(post.poster.profileURL) // ✅ now it's the actual string
+      }
+    }))
+  );
 
     
 
-    res.json(posts);
+    res.json(transformedPosts);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
@@ -267,26 +307,63 @@ app.get('/Get/Specific/Post/:id', async (req, res) => {
       },
     },
   });
+  
+  if(post){
+    const imagePost = {
+      ...post,
+      imageURL: await getImageURL(post.imageURL),
+    }
+    res.json(imagePost);
+  }
+  
 
-  res.json(post);
+  //res.json(post);
 });
 
 
 //replies:
 
 //create a reply
-app.post('/replies', async (req, res) => {
+app.post('/replies', upload.single("file"), async (req, res) => {
   const { userid, parentId, text } = req.body;
+  const file = req.file;
 
   try {
+
+    let uniqueFilename = "";
+    if(file){
+
+      let contentType = file?.mimetype;
+      const ext = file.originalname.split(".").pop()?.toLowerCase();
+
+      if(ext == "mp4"){
+        contentType = "video/mp4";
+      }
+      
+      uniqueFilename = `${uuidv4()}-${file?.originalname}`
+
+      const command = new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: uniqueFilename,
+        Body: file?.buffer, 
+        ContentType: contentType,
+      });
+    
+
+      await s3.send(command);
+
+      console.log("✅ Uploaded file:", uniqueFilename);
+
+    }
+
     const newReply = await prisma.posts.create({
-      data: { userid, text, parentId },
-      include: {
-        poster: { select: { id: true, name: true } },
-        _count: { select: { likes: true } },
-        likes: { select: { userid: true } },
-      },
-    });
+        data: { userid, text, parentId, imageURL: uniqueFilename },
+        include: {
+          poster: { select: { id: true, name: true } },
+          _count: { select: { likes: true } },
+          likes: { select: { userid: true } },
+        },
+      });
 
     res.json(newReply);
   } catch (error) {
@@ -310,7 +387,16 @@ app.get('/replies/:id', async (req, res) => {
     },
   });
 
-  res.json(reply);
+  if(reply){
+    const transReply = {
+      ...reply,
+      imageURL: await getImageURL(reply.imageURL),
+    }
+    res.json(transReply);
+  }
+  
+
+  //res.json(transReply);
 });
 
 //list all replies
@@ -439,27 +525,39 @@ app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<
   
 });
 
-app.post('/put/image/forPost', upload.single("file"), async (req, res) => {
-  console.log("HELLO????");
-  try {
-    const file = req.file; 
-    if (!file) res.status(400).json({ error: "No file uploaded" });
-    const uniqueFilename = `${uuidv4()}-${file?.originalname}`
+app.get('/get/all/Problems', async (req, res) => {
 
-    const command = new PutObjectCommand({
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: uniqueFilename,
-      Body: file?.buffer, 
-      ContentType: file?.mimetype,
-    });
+  const problems = await prisma.problems.findMany();
 
-    await s3.send(command);
-
-    console.log("✅ Uploaded file:", uniqueFilename);
-    res.json({filename: uniqueFilename});
-
-  } catch (error){
-    console.log("bro???");
-  }
+  res.json(problems);
 });
+
+app.get('/get/specific/Problem/:id', async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const problem = await prisma.problems.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      questions: {
+        select: {
+          daQuestion: true,
+          questionOrder: true,
+        }
+      },
+      answers: {
+        select: {
+          daAnswer: true,
+          answerOrder: true,
+        },
+      },
+    },
+  });
+
+  res.json(problem);
+
+});
+
+
 

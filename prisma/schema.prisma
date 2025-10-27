@@ -69,3 +69,32 @@ model likes {
 
   @@unique([userid, postid])
 }
+
+model problems {
+  id        Int       @id @default(autoincrement())
+  userid    Int
+  name      String @default("")
+  difficulty  String @default("Easy")
+  desc      String @default("")
+  startCode String @default("")
+  testCaseCode String @default("")
+
+  answers   answers[]
+  questions questions[]
+}
+
+model questions {
+  id Int @id @default(autoincrement())
+  problemId Int
+  questionOrder Int //0 - 2 CURRENTLY
+  daQuestion String @default("")
+  problem   problems @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+model answers {
+  id          Int       @id @default(autoincrement())
+  problemId   Int       
+  daAnswer    String    @default("")
+  answerOrder Int //CURRENTLY from 0 - 5
+  problem     problems  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}

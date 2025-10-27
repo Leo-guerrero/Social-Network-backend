@@ -33,6 +33,21 @@ export type posts = $Result.DefaultSelection<Prisma.$postsPayload>
  * 
  */
 export type likes = $Result.DefaultSelection<Prisma.$likesPayload>
+/**
+ * Model problems
+ * 
+ */
+export type problems = $Result.DefaultSelection<Prisma.$problemsPayload>
+/**
+ * Model questions
+ * 
+ */
+export type questions = $Result.DefaultSelection<Prisma.$questionsPayload>
+/**
+ * Model answers
+ * 
+ */
+export type answers = $Result.DefaultSelection<Prisma.$answersPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -198,6 +213,36 @@ export class PrismaClient<
     * ```
     */
   get likes(): Prisma.likesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.problems`: Exposes CRUD operations for the **problems** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Problems
+    * const problems = await prisma.problems.findMany()
+    * ```
+    */
+  get problems(): Prisma.problemsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.questions`: Exposes CRUD operations for the **questions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Questions
+    * const questions = await prisma.questions.findMany()
+    * ```
+    */
+  get questions(): Prisma.questionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.answers`: Exposes CRUD operations for the **answers** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Answers
+    * const answers = await prisma.answers.findMany()
+    * ```
+    */
+  get answers(): Prisma.answersDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -641,7 +686,10 @@ export namespace Prisma {
     users: 'users',
     profiles: 'profiles',
     posts: 'posts',
-    likes: 'likes'
+    likes: 'likes',
+    problems: 'problems',
+    questions: 'questions',
+    answers: 'answers'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "profiles" | "posts" | "likes"
+      modelProps: "users" | "profiles" | "posts" | "likes" | "problems" | "questions" | "answers"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +1008,228 @@ export namespace Prisma {
           }
         }
       }
+      problems: {
+        payload: Prisma.$problemsPayload<ExtArgs>
+        fields: Prisma.problemsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.problemsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.problemsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          findFirst: {
+            args: Prisma.problemsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.problemsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          findMany: {
+            args: Prisma.problemsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>[]
+          }
+          create: {
+            args: Prisma.problemsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          createMany: {
+            args: Prisma.problemsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.problemsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>[]
+          }
+          delete: {
+            args: Prisma.problemsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          update: {
+            args: Prisma.problemsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          deleteMany: {
+            args: Prisma.problemsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.problemsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.problemsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>[]
+          }
+          upsert: {
+            args: Prisma.problemsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$problemsPayload>
+          }
+          aggregate: {
+            args: Prisma.ProblemsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProblems>
+          }
+          groupBy: {
+            args: Prisma.problemsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProblemsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.problemsCountArgs<ExtArgs>
+            result: $Utils.Optional<ProblemsCountAggregateOutputType> | number
+          }
+        }
+      }
+      questions: {
+        payload: Prisma.$questionsPayload<ExtArgs>
+        fields: Prisma.questionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.questionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.questionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          findFirst: {
+            args: Prisma.questionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.questionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          findMany: {
+            args: Prisma.questionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>[]
+          }
+          create: {
+            args: Prisma.questionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          createMany: {
+            args: Prisma.questionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.questionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>[]
+          }
+          delete: {
+            args: Prisma.questionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          update: {
+            args: Prisma.questionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.questionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.questionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.questionsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>[]
+          }
+          upsert: {
+            args: Prisma.questionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$questionsPayload>
+          }
+          aggregate: {
+            args: Prisma.QuestionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuestions>
+          }
+          groupBy: {
+            args: Prisma.questionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuestionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.questionsCountArgs<ExtArgs>
+            result: $Utils.Optional<QuestionsCountAggregateOutputType> | number
+          }
+        }
+      }
+      answers: {
+        payload: Prisma.$answersPayload<ExtArgs>
+        fields: Prisma.answersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.answersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.answersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          findFirst: {
+            args: Prisma.answersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.answersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          findMany: {
+            args: Prisma.answersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>[]
+          }
+          create: {
+            args: Prisma.answersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          createMany: {
+            args: Prisma.answersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.answersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>[]
+          }
+          delete: {
+            args: Prisma.answersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          update: {
+            args: Prisma.answersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          deleteMany: {
+            args: Prisma.answersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.answersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.answersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>[]
+          }
+          upsert: {
+            args: Prisma.answersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$answersPayload>
+          }
+          aggregate: {
+            args: Prisma.AnswersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAnswers>
+          }
+          groupBy: {
+            args: Prisma.answersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AnswersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.answersCountArgs<ExtArgs>
+            result: $Utils.Optional<AnswersCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1048,6 +1318,9 @@ export namespace Prisma {
     profiles?: profilesOmit
     posts?: postsOmit
     likes?: likesOmit
+    problems?: problemsOmit
+    questions?: questionsOmit
+    answers?: answersOmit
   }
 
   /* Types for Logging */
@@ -1214,6 +1487,46 @@ export namespace Prisma {
    */
   export type PostsCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: postsWhereInput
+  }
+
+
+  /**
+   * Count Type ProblemsCountOutputType
+   */
+
+  export type ProblemsCountOutputType = {
+    answers: number
+    questions: number
+  }
+
+  export type ProblemsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    answers?: boolean | ProblemsCountOutputTypeCountAnswersArgs
+    questions?: boolean | ProblemsCountOutputTypeCountQuestionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProblemsCountOutputType without action
+   */
+  export type ProblemsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProblemsCountOutputType
+     */
+    select?: ProblemsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProblemsCountOutputType without action
+   */
+  export type ProblemsCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: answersWhereInput
+  }
+
+  /**
+   * ProblemsCountOutputType without action
+   */
+  export type ProblemsCountOutputTypeCountQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: questionsWhereInput
   }
 
 
@@ -5749,6 +6062,3342 @@ export namespace Prisma {
 
 
   /**
+   * Model problems
+   */
+
+  export type AggregateProblems = {
+    _count: ProblemsCountAggregateOutputType | null
+    _avg: ProblemsAvgAggregateOutputType | null
+    _sum: ProblemsSumAggregateOutputType | null
+    _min: ProblemsMinAggregateOutputType | null
+    _max: ProblemsMaxAggregateOutputType | null
+  }
+
+  export type ProblemsAvgAggregateOutputType = {
+    id: number | null
+    userid: number | null
+  }
+
+  export type ProblemsSumAggregateOutputType = {
+    id: number | null
+    userid: number | null
+  }
+
+  export type ProblemsMinAggregateOutputType = {
+    id: number | null
+    userid: number | null
+    name: string | null
+    difficulty: string | null
+    desc: string | null
+    startCode: string | null
+    testCaseCode: string | null
+  }
+
+  export type ProblemsMaxAggregateOutputType = {
+    id: number | null
+    userid: number | null
+    name: string | null
+    difficulty: string | null
+    desc: string | null
+    startCode: string | null
+    testCaseCode: string | null
+  }
+
+  export type ProblemsCountAggregateOutputType = {
+    id: number
+    userid: number
+    name: number
+    difficulty: number
+    desc: number
+    startCode: number
+    testCaseCode: number
+    _all: number
+  }
+
+
+  export type ProblemsAvgAggregateInputType = {
+    id?: true
+    userid?: true
+  }
+
+  export type ProblemsSumAggregateInputType = {
+    id?: true
+    userid?: true
+  }
+
+  export type ProblemsMinAggregateInputType = {
+    id?: true
+    userid?: true
+    name?: true
+    difficulty?: true
+    desc?: true
+    startCode?: true
+    testCaseCode?: true
+  }
+
+  export type ProblemsMaxAggregateInputType = {
+    id?: true
+    userid?: true
+    name?: true
+    difficulty?: true
+    desc?: true
+    startCode?: true
+    testCaseCode?: true
+  }
+
+  export type ProblemsCountAggregateInputType = {
+    id?: true
+    userid?: true
+    name?: true
+    difficulty?: true
+    desc?: true
+    startCode?: true
+    testCaseCode?: true
+    _all?: true
+  }
+
+  export type ProblemsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which problems to aggregate.
+     */
+    where?: problemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of problems to fetch.
+     */
+    orderBy?: problemsOrderByWithRelationInput | problemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: problemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` problems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` problems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned problems
+    **/
+    _count?: true | ProblemsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProblemsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProblemsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProblemsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProblemsMaxAggregateInputType
+  }
+
+  export type GetProblemsAggregateType<T extends ProblemsAggregateArgs> = {
+        [P in keyof T & keyof AggregateProblems]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProblems[P]>
+      : GetScalarType<T[P], AggregateProblems[P]>
+  }
+
+
+
+
+  export type problemsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: problemsWhereInput
+    orderBy?: problemsOrderByWithAggregationInput | problemsOrderByWithAggregationInput[]
+    by: ProblemsScalarFieldEnum[] | ProblemsScalarFieldEnum
+    having?: problemsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProblemsCountAggregateInputType | true
+    _avg?: ProblemsAvgAggregateInputType
+    _sum?: ProblemsSumAggregateInputType
+    _min?: ProblemsMinAggregateInputType
+    _max?: ProblemsMaxAggregateInputType
+  }
+
+  export type ProblemsGroupByOutputType = {
+    id: number
+    userid: number
+    name: string
+    difficulty: string
+    desc: string
+    startCode: string
+    testCaseCode: string
+    _count: ProblemsCountAggregateOutputType | null
+    _avg: ProblemsAvgAggregateOutputType | null
+    _sum: ProblemsSumAggregateOutputType | null
+    _min: ProblemsMinAggregateOutputType | null
+    _max: ProblemsMaxAggregateOutputType | null
+  }
+
+  type GetProblemsGroupByPayload<T extends problemsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProblemsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProblemsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProblemsGroupByOutputType[P]>
+            : GetScalarType<T[P], ProblemsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type problemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userid?: boolean
+    name?: boolean
+    difficulty?: boolean
+    desc?: boolean
+    startCode?: boolean
+    testCaseCode?: boolean
+    answers?: boolean | problems$answersArgs<ExtArgs>
+    questions?: boolean | problems$questionsArgs<ExtArgs>
+    _count?: boolean | ProblemsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["problems"]>
+
+  export type problemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userid?: boolean
+    name?: boolean
+    difficulty?: boolean
+    desc?: boolean
+    startCode?: boolean
+    testCaseCode?: boolean
+  }, ExtArgs["result"]["problems"]>
+
+  export type problemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userid?: boolean
+    name?: boolean
+    difficulty?: boolean
+    desc?: boolean
+    startCode?: boolean
+    testCaseCode?: boolean
+  }, ExtArgs["result"]["problems"]>
+
+  export type problemsSelectScalar = {
+    id?: boolean
+    userid?: boolean
+    name?: boolean
+    difficulty?: boolean
+    desc?: boolean
+    startCode?: boolean
+    testCaseCode?: boolean
+  }
+
+  export type problemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userid" | "name" | "difficulty" | "desc" | "startCode" | "testCaseCode", ExtArgs["result"]["problems"]>
+  export type problemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    answers?: boolean | problems$answersArgs<ExtArgs>
+    questions?: boolean | problems$questionsArgs<ExtArgs>
+    _count?: boolean | ProblemsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type problemsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type problemsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $problemsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "problems"
+    objects: {
+      answers: Prisma.$answersPayload<ExtArgs>[]
+      questions: Prisma.$questionsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userid: number
+      name: string
+      difficulty: string
+      desc: string
+      startCode: string
+      testCaseCode: string
+    }, ExtArgs["result"]["problems"]>
+    composites: {}
+  }
+
+  type problemsGetPayload<S extends boolean | null | undefined | problemsDefaultArgs> = $Result.GetResult<Prisma.$problemsPayload, S>
+
+  type problemsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<problemsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProblemsCountAggregateInputType | true
+    }
+
+  export interface problemsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['problems'], meta: { name: 'problems' } }
+    /**
+     * Find zero or one Problems that matches the filter.
+     * @param {problemsFindUniqueArgs} args - Arguments to find a Problems
+     * @example
+     * // Get one Problems
+     * const problems = await prisma.problems.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends problemsFindUniqueArgs>(args: SelectSubset<T, problemsFindUniqueArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Problems that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {problemsFindUniqueOrThrowArgs} args - Arguments to find a Problems
+     * @example
+     * // Get one Problems
+     * const problems = await prisma.problems.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends problemsFindUniqueOrThrowArgs>(args: SelectSubset<T, problemsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Problems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsFindFirstArgs} args - Arguments to find a Problems
+     * @example
+     * // Get one Problems
+     * const problems = await prisma.problems.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends problemsFindFirstArgs>(args?: SelectSubset<T, problemsFindFirstArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Problems that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsFindFirstOrThrowArgs} args - Arguments to find a Problems
+     * @example
+     * // Get one Problems
+     * const problems = await prisma.problems.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends problemsFindFirstOrThrowArgs>(args?: SelectSubset<T, problemsFindFirstOrThrowArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Problems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Problems
+     * const problems = await prisma.problems.findMany()
+     * 
+     * // Get first 10 Problems
+     * const problems = await prisma.problems.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const problemsWithIdOnly = await prisma.problems.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends problemsFindManyArgs>(args?: SelectSubset<T, problemsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Problems.
+     * @param {problemsCreateArgs} args - Arguments to create a Problems.
+     * @example
+     * // Create one Problems
+     * const Problems = await prisma.problems.create({
+     *   data: {
+     *     // ... data to create a Problems
+     *   }
+     * })
+     * 
+     */
+    create<T extends problemsCreateArgs>(args: SelectSubset<T, problemsCreateArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Problems.
+     * @param {problemsCreateManyArgs} args - Arguments to create many Problems.
+     * @example
+     * // Create many Problems
+     * const problems = await prisma.problems.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends problemsCreateManyArgs>(args?: SelectSubset<T, problemsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Problems and returns the data saved in the database.
+     * @param {problemsCreateManyAndReturnArgs} args - Arguments to create many Problems.
+     * @example
+     * // Create many Problems
+     * const problems = await prisma.problems.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Problems and only return the `id`
+     * const problemsWithIdOnly = await prisma.problems.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends problemsCreateManyAndReturnArgs>(args?: SelectSubset<T, problemsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Problems.
+     * @param {problemsDeleteArgs} args - Arguments to delete one Problems.
+     * @example
+     * // Delete one Problems
+     * const Problems = await prisma.problems.delete({
+     *   where: {
+     *     // ... filter to delete one Problems
+     *   }
+     * })
+     * 
+     */
+    delete<T extends problemsDeleteArgs>(args: SelectSubset<T, problemsDeleteArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Problems.
+     * @param {problemsUpdateArgs} args - Arguments to update one Problems.
+     * @example
+     * // Update one Problems
+     * const problems = await prisma.problems.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends problemsUpdateArgs>(args: SelectSubset<T, problemsUpdateArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Problems.
+     * @param {problemsDeleteManyArgs} args - Arguments to filter Problems to delete.
+     * @example
+     * // Delete a few Problems
+     * const { count } = await prisma.problems.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends problemsDeleteManyArgs>(args?: SelectSubset<T, problemsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Problems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Problems
+     * const problems = await prisma.problems.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends problemsUpdateManyArgs>(args: SelectSubset<T, problemsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Problems and returns the data updated in the database.
+     * @param {problemsUpdateManyAndReturnArgs} args - Arguments to update many Problems.
+     * @example
+     * // Update many Problems
+     * const problems = await prisma.problems.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Problems and only return the `id`
+     * const problemsWithIdOnly = await prisma.problems.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends problemsUpdateManyAndReturnArgs>(args: SelectSubset<T, problemsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Problems.
+     * @param {problemsUpsertArgs} args - Arguments to update or create a Problems.
+     * @example
+     * // Update or create a Problems
+     * const problems = await prisma.problems.upsert({
+     *   create: {
+     *     // ... data to create a Problems
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Problems we want to update
+     *   }
+     * })
+     */
+    upsert<T extends problemsUpsertArgs>(args: SelectSubset<T, problemsUpsertArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Problems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsCountArgs} args - Arguments to filter Problems to count.
+     * @example
+     * // Count the number of Problems
+     * const count = await prisma.problems.count({
+     *   where: {
+     *     // ... the filter for the Problems we want to count
+     *   }
+     * })
+    **/
+    count<T extends problemsCountArgs>(
+      args?: Subset<T, problemsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProblemsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Problems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProblemsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProblemsAggregateArgs>(args: Subset<T, ProblemsAggregateArgs>): Prisma.PrismaPromise<GetProblemsAggregateType<T>>
+
+    /**
+     * Group by Problems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {problemsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends problemsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: problemsGroupByArgs['orderBy'] }
+        : { orderBy?: problemsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, problemsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProblemsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the problems model
+   */
+  readonly fields: problemsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for problems.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__problemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    answers<T extends problems$answersArgs<ExtArgs> = {}>(args?: Subset<T, problems$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    questions<T extends problems$questionsArgs<ExtArgs> = {}>(args?: Subset<T, problems$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the problems model
+   */
+  interface problemsFieldRefs {
+    readonly id: FieldRef<"problems", 'Int'>
+    readonly userid: FieldRef<"problems", 'Int'>
+    readonly name: FieldRef<"problems", 'String'>
+    readonly difficulty: FieldRef<"problems", 'String'>
+    readonly desc: FieldRef<"problems", 'String'>
+    readonly startCode: FieldRef<"problems", 'String'>
+    readonly testCaseCode: FieldRef<"problems", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * problems findUnique
+   */
+  export type problemsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter, which problems to fetch.
+     */
+    where: problemsWhereUniqueInput
+  }
+
+  /**
+   * problems findUniqueOrThrow
+   */
+  export type problemsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter, which problems to fetch.
+     */
+    where: problemsWhereUniqueInput
+  }
+
+  /**
+   * problems findFirst
+   */
+  export type problemsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter, which problems to fetch.
+     */
+    where?: problemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of problems to fetch.
+     */
+    orderBy?: problemsOrderByWithRelationInput | problemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for problems.
+     */
+    cursor?: problemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` problems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` problems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of problems.
+     */
+    distinct?: ProblemsScalarFieldEnum | ProblemsScalarFieldEnum[]
+  }
+
+  /**
+   * problems findFirstOrThrow
+   */
+  export type problemsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter, which problems to fetch.
+     */
+    where?: problemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of problems to fetch.
+     */
+    orderBy?: problemsOrderByWithRelationInput | problemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for problems.
+     */
+    cursor?: problemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` problems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` problems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of problems.
+     */
+    distinct?: ProblemsScalarFieldEnum | ProblemsScalarFieldEnum[]
+  }
+
+  /**
+   * problems findMany
+   */
+  export type problemsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter, which problems to fetch.
+     */
+    where?: problemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of problems to fetch.
+     */
+    orderBy?: problemsOrderByWithRelationInput | problemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing problems.
+     */
+    cursor?: problemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` problems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` problems.
+     */
+    skip?: number
+    distinct?: ProblemsScalarFieldEnum | ProblemsScalarFieldEnum[]
+  }
+
+  /**
+   * problems create
+   */
+  export type problemsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a problems.
+     */
+    data: XOR<problemsCreateInput, problemsUncheckedCreateInput>
+  }
+
+  /**
+   * problems createMany
+   */
+  export type problemsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many problems.
+     */
+    data: problemsCreateManyInput | problemsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * problems createManyAndReturn
+   */
+  export type problemsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * The data used to create many problems.
+     */
+    data: problemsCreateManyInput | problemsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * problems update
+   */
+  export type problemsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a problems.
+     */
+    data: XOR<problemsUpdateInput, problemsUncheckedUpdateInput>
+    /**
+     * Choose, which problems to update.
+     */
+    where: problemsWhereUniqueInput
+  }
+
+  /**
+   * problems updateMany
+   */
+  export type problemsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update problems.
+     */
+    data: XOR<problemsUpdateManyMutationInput, problemsUncheckedUpdateManyInput>
+    /**
+     * Filter which problems to update
+     */
+    where?: problemsWhereInput
+    /**
+     * Limit how many problems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * problems updateManyAndReturn
+   */
+  export type problemsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * The data used to update problems.
+     */
+    data: XOR<problemsUpdateManyMutationInput, problemsUncheckedUpdateManyInput>
+    /**
+     * Filter which problems to update
+     */
+    where?: problemsWhereInput
+    /**
+     * Limit how many problems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * problems upsert
+   */
+  export type problemsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the problems to update in case it exists.
+     */
+    where: problemsWhereUniqueInput
+    /**
+     * In case the problems found by the `where` argument doesn't exist, create a new problems with this data.
+     */
+    create: XOR<problemsCreateInput, problemsUncheckedCreateInput>
+    /**
+     * In case the problems was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<problemsUpdateInput, problemsUncheckedUpdateInput>
+  }
+
+  /**
+   * problems delete
+   */
+  export type problemsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+    /**
+     * Filter which problems to delete.
+     */
+    where: problemsWhereUniqueInput
+  }
+
+  /**
+   * problems deleteMany
+   */
+  export type problemsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which problems to delete
+     */
+    where?: problemsWhereInput
+    /**
+     * Limit how many problems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * problems.answers
+   */
+  export type problems$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    where?: answersWhereInput
+    orderBy?: answersOrderByWithRelationInput | answersOrderByWithRelationInput[]
+    cursor?: answersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswersScalarFieldEnum | AnswersScalarFieldEnum[]
+  }
+
+  /**
+   * problems.questions
+   */
+  export type problems$questionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    where?: questionsWhereInput
+    orderBy?: questionsOrderByWithRelationInput | questionsOrderByWithRelationInput[]
+    cursor?: questionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuestionsScalarFieldEnum | QuestionsScalarFieldEnum[]
+  }
+
+  /**
+   * problems without action
+   */
+  export type problemsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the problems
+     */
+    select?: problemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the problems
+     */
+    omit?: problemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: problemsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model questions
+   */
+
+  export type AggregateQuestions = {
+    _count: QuestionsCountAggregateOutputType | null
+    _avg: QuestionsAvgAggregateOutputType | null
+    _sum: QuestionsSumAggregateOutputType | null
+    _min: QuestionsMinAggregateOutputType | null
+    _max: QuestionsMaxAggregateOutputType | null
+  }
+
+  export type QuestionsAvgAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    questionOrder: number | null
+  }
+
+  export type QuestionsSumAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    questionOrder: number | null
+  }
+
+  export type QuestionsMinAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    questionOrder: number | null
+    daQuestion: string | null
+  }
+
+  export type QuestionsMaxAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    questionOrder: number | null
+    daQuestion: string | null
+  }
+
+  export type QuestionsCountAggregateOutputType = {
+    id: number
+    problemId: number
+    questionOrder: number
+    daQuestion: number
+    _all: number
+  }
+
+
+  export type QuestionsAvgAggregateInputType = {
+    id?: true
+    problemId?: true
+    questionOrder?: true
+  }
+
+  export type QuestionsSumAggregateInputType = {
+    id?: true
+    problemId?: true
+    questionOrder?: true
+  }
+
+  export type QuestionsMinAggregateInputType = {
+    id?: true
+    problemId?: true
+    questionOrder?: true
+    daQuestion?: true
+  }
+
+  export type QuestionsMaxAggregateInputType = {
+    id?: true
+    problemId?: true
+    questionOrder?: true
+    daQuestion?: true
+  }
+
+  export type QuestionsCountAggregateInputType = {
+    id?: true
+    problemId?: true
+    questionOrder?: true
+    daQuestion?: true
+    _all?: true
+  }
+
+  export type QuestionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which questions to aggregate.
+     */
+    where?: questionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of questions to fetch.
+     */
+    orderBy?: questionsOrderByWithRelationInput | questionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: questionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` questions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` questions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned questions
+    **/
+    _count?: true | QuestionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuestionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuestionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuestionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuestionsMaxAggregateInputType
+  }
+
+  export type GetQuestionsAggregateType<T extends QuestionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuestions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuestions[P]>
+      : GetScalarType<T[P], AggregateQuestions[P]>
+  }
+
+
+
+
+  export type questionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: questionsWhereInput
+    orderBy?: questionsOrderByWithAggregationInput | questionsOrderByWithAggregationInput[]
+    by: QuestionsScalarFieldEnum[] | QuestionsScalarFieldEnum
+    having?: questionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuestionsCountAggregateInputType | true
+    _avg?: QuestionsAvgAggregateInputType
+    _sum?: QuestionsSumAggregateInputType
+    _min?: QuestionsMinAggregateInputType
+    _max?: QuestionsMaxAggregateInputType
+  }
+
+  export type QuestionsGroupByOutputType = {
+    id: number
+    problemId: number
+    questionOrder: number
+    daQuestion: string
+    _count: QuestionsCountAggregateOutputType | null
+    _avg: QuestionsAvgAggregateOutputType | null
+    _sum: QuestionsSumAggregateOutputType | null
+    _min: QuestionsMinAggregateOutputType | null
+    _max: QuestionsMaxAggregateOutputType | null
+  }
+
+  type GetQuestionsGroupByPayload<T extends questionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuestionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuestionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuestionsGroupByOutputType[P]>
+            : GetScalarType<T[P], QuestionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type questionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    questionOrder?: boolean
+    daQuestion?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["questions"]>
+
+  export type questionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    questionOrder?: boolean
+    daQuestion?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["questions"]>
+
+  export type questionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    questionOrder?: boolean
+    daQuestion?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["questions"]>
+
+  export type questionsSelectScalar = {
+    id?: boolean
+    problemId?: boolean
+    questionOrder?: boolean
+    daQuestion?: boolean
+  }
+
+  export type questionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "problemId" | "questionOrder" | "daQuestion", ExtArgs["result"]["questions"]>
+  export type questionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+  export type questionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+  export type questionsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+
+  export type $questionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "questions"
+    objects: {
+      problem: Prisma.$problemsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      problemId: number
+      questionOrder: number
+      daQuestion: string
+    }, ExtArgs["result"]["questions"]>
+    composites: {}
+  }
+
+  type questionsGetPayload<S extends boolean | null | undefined | questionsDefaultArgs> = $Result.GetResult<Prisma.$questionsPayload, S>
+
+  type questionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<questionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuestionsCountAggregateInputType | true
+    }
+
+  export interface questionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['questions'], meta: { name: 'questions' } }
+    /**
+     * Find zero or one Questions that matches the filter.
+     * @param {questionsFindUniqueArgs} args - Arguments to find a Questions
+     * @example
+     * // Get one Questions
+     * const questions = await prisma.questions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends questionsFindUniqueArgs>(args: SelectSubset<T, questionsFindUniqueArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Questions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {questionsFindUniqueOrThrowArgs} args - Arguments to find a Questions
+     * @example
+     * // Get one Questions
+     * const questions = await prisma.questions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends questionsFindUniqueOrThrowArgs>(args: SelectSubset<T, questionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Questions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsFindFirstArgs} args - Arguments to find a Questions
+     * @example
+     * // Get one Questions
+     * const questions = await prisma.questions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends questionsFindFirstArgs>(args?: SelectSubset<T, questionsFindFirstArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Questions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsFindFirstOrThrowArgs} args - Arguments to find a Questions
+     * @example
+     * // Get one Questions
+     * const questions = await prisma.questions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends questionsFindFirstOrThrowArgs>(args?: SelectSubset<T, questionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Questions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Questions
+     * const questions = await prisma.questions.findMany()
+     * 
+     * // Get first 10 Questions
+     * const questions = await prisma.questions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const questionsWithIdOnly = await prisma.questions.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends questionsFindManyArgs>(args?: SelectSubset<T, questionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Questions.
+     * @param {questionsCreateArgs} args - Arguments to create a Questions.
+     * @example
+     * // Create one Questions
+     * const Questions = await prisma.questions.create({
+     *   data: {
+     *     // ... data to create a Questions
+     *   }
+     * })
+     * 
+     */
+    create<T extends questionsCreateArgs>(args: SelectSubset<T, questionsCreateArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Questions.
+     * @param {questionsCreateManyArgs} args - Arguments to create many Questions.
+     * @example
+     * // Create many Questions
+     * const questions = await prisma.questions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends questionsCreateManyArgs>(args?: SelectSubset<T, questionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Questions and returns the data saved in the database.
+     * @param {questionsCreateManyAndReturnArgs} args - Arguments to create many Questions.
+     * @example
+     * // Create many Questions
+     * const questions = await prisma.questions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Questions and only return the `id`
+     * const questionsWithIdOnly = await prisma.questions.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends questionsCreateManyAndReturnArgs>(args?: SelectSubset<T, questionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Questions.
+     * @param {questionsDeleteArgs} args - Arguments to delete one Questions.
+     * @example
+     * // Delete one Questions
+     * const Questions = await prisma.questions.delete({
+     *   where: {
+     *     // ... filter to delete one Questions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends questionsDeleteArgs>(args: SelectSubset<T, questionsDeleteArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Questions.
+     * @param {questionsUpdateArgs} args - Arguments to update one Questions.
+     * @example
+     * // Update one Questions
+     * const questions = await prisma.questions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends questionsUpdateArgs>(args: SelectSubset<T, questionsUpdateArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Questions.
+     * @param {questionsDeleteManyArgs} args - Arguments to filter Questions to delete.
+     * @example
+     * // Delete a few Questions
+     * const { count } = await prisma.questions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends questionsDeleteManyArgs>(args?: SelectSubset<T, questionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Questions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Questions
+     * const questions = await prisma.questions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends questionsUpdateManyArgs>(args: SelectSubset<T, questionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Questions and returns the data updated in the database.
+     * @param {questionsUpdateManyAndReturnArgs} args - Arguments to update many Questions.
+     * @example
+     * // Update many Questions
+     * const questions = await prisma.questions.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Questions and only return the `id`
+     * const questionsWithIdOnly = await prisma.questions.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends questionsUpdateManyAndReturnArgs>(args: SelectSubset<T, questionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Questions.
+     * @param {questionsUpsertArgs} args - Arguments to update or create a Questions.
+     * @example
+     * // Update or create a Questions
+     * const questions = await prisma.questions.upsert({
+     *   create: {
+     *     // ... data to create a Questions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Questions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends questionsUpsertArgs>(args: SelectSubset<T, questionsUpsertArgs<ExtArgs>>): Prisma__questionsClient<$Result.GetResult<Prisma.$questionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Questions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsCountArgs} args - Arguments to filter Questions to count.
+     * @example
+     * // Count the number of Questions
+     * const count = await prisma.questions.count({
+     *   where: {
+     *     // ... the filter for the Questions we want to count
+     *   }
+     * })
+    **/
+    count<T extends questionsCountArgs>(
+      args?: Subset<T, questionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuestionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Questions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuestionsAggregateArgs>(args: Subset<T, QuestionsAggregateArgs>): Prisma.PrismaPromise<GetQuestionsAggregateType<T>>
+
+    /**
+     * Group by Questions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {questionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends questionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: questionsGroupByArgs['orderBy'] }
+        : { orderBy?: questionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, questionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuestionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the questions model
+   */
+  readonly fields: questionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for questions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__questionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    problem<T extends problemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, problemsDefaultArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the questions model
+   */
+  interface questionsFieldRefs {
+    readonly id: FieldRef<"questions", 'Int'>
+    readonly problemId: FieldRef<"questions", 'Int'>
+    readonly questionOrder: FieldRef<"questions", 'Int'>
+    readonly daQuestion: FieldRef<"questions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * questions findUnique
+   */
+  export type questionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter, which questions to fetch.
+     */
+    where: questionsWhereUniqueInput
+  }
+
+  /**
+   * questions findUniqueOrThrow
+   */
+  export type questionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter, which questions to fetch.
+     */
+    where: questionsWhereUniqueInput
+  }
+
+  /**
+   * questions findFirst
+   */
+  export type questionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter, which questions to fetch.
+     */
+    where?: questionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of questions to fetch.
+     */
+    orderBy?: questionsOrderByWithRelationInput | questionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for questions.
+     */
+    cursor?: questionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` questions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` questions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of questions.
+     */
+    distinct?: QuestionsScalarFieldEnum | QuestionsScalarFieldEnum[]
+  }
+
+  /**
+   * questions findFirstOrThrow
+   */
+  export type questionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter, which questions to fetch.
+     */
+    where?: questionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of questions to fetch.
+     */
+    orderBy?: questionsOrderByWithRelationInput | questionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for questions.
+     */
+    cursor?: questionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` questions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` questions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of questions.
+     */
+    distinct?: QuestionsScalarFieldEnum | QuestionsScalarFieldEnum[]
+  }
+
+  /**
+   * questions findMany
+   */
+  export type questionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter, which questions to fetch.
+     */
+    where?: questionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of questions to fetch.
+     */
+    orderBy?: questionsOrderByWithRelationInput | questionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing questions.
+     */
+    cursor?: questionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` questions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` questions.
+     */
+    skip?: number
+    distinct?: QuestionsScalarFieldEnum | QuestionsScalarFieldEnum[]
+  }
+
+  /**
+   * questions create
+   */
+  export type questionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a questions.
+     */
+    data: XOR<questionsCreateInput, questionsUncheckedCreateInput>
+  }
+
+  /**
+   * questions createMany
+   */
+  export type questionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many questions.
+     */
+    data: questionsCreateManyInput | questionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * questions createManyAndReturn
+   */
+  export type questionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * The data used to create many questions.
+     */
+    data: questionsCreateManyInput | questionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * questions update
+   */
+  export type questionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a questions.
+     */
+    data: XOR<questionsUpdateInput, questionsUncheckedUpdateInput>
+    /**
+     * Choose, which questions to update.
+     */
+    where: questionsWhereUniqueInput
+  }
+
+  /**
+   * questions updateMany
+   */
+  export type questionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update questions.
+     */
+    data: XOR<questionsUpdateManyMutationInput, questionsUncheckedUpdateManyInput>
+    /**
+     * Filter which questions to update
+     */
+    where?: questionsWhereInput
+    /**
+     * Limit how many questions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * questions updateManyAndReturn
+   */
+  export type questionsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * The data used to update questions.
+     */
+    data: XOR<questionsUpdateManyMutationInput, questionsUncheckedUpdateManyInput>
+    /**
+     * Filter which questions to update
+     */
+    where?: questionsWhereInput
+    /**
+     * Limit how many questions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * questions upsert
+   */
+  export type questionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the questions to update in case it exists.
+     */
+    where: questionsWhereUniqueInput
+    /**
+     * In case the questions found by the `where` argument doesn't exist, create a new questions with this data.
+     */
+    create: XOR<questionsCreateInput, questionsUncheckedCreateInput>
+    /**
+     * In case the questions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<questionsUpdateInput, questionsUncheckedUpdateInput>
+  }
+
+  /**
+   * questions delete
+   */
+  export type questionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+    /**
+     * Filter which questions to delete.
+     */
+    where: questionsWhereUniqueInput
+  }
+
+  /**
+   * questions deleteMany
+   */
+  export type questionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which questions to delete
+     */
+    where?: questionsWhereInput
+    /**
+     * Limit how many questions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * questions without action
+   */
+  export type questionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the questions
+     */
+    select?: questionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the questions
+     */
+    omit?: questionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: questionsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model answers
+   */
+
+  export type AggregateAnswers = {
+    _count: AnswersCountAggregateOutputType | null
+    _avg: AnswersAvgAggregateOutputType | null
+    _sum: AnswersSumAggregateOutputType | null
+    _min: AnswersMinAggregateOutputType | null
+    _max: AnswersMaxAggregateOutputType | null
+  }
+
+  export type AnswersAvgAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    answerOrder: number | null
+  }
+
+  export type AnswersSumAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    answerOrder: number | null
+  }
+
+  export type AnswersMinAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    daAnswer: string | null
+    answerOrder: number | null
+  }
+
+  export type AnswersMaxAggregateOutputType = {
+    id: number | null
+    problemId: number | null
+    daAnswer: string | null
+    answerOrder: number | null
+  }
+
+  export type AnswersCountAggregateOutputType = {
+    id: number
+    problemId: number
+    daAnswer: number
+    answerOrder: number
+    _all: number
+  }
+
+
+  export type AnswersAvgAggregateInputType = {
+    id?: true
+    problemId?: true
+    answerOrder?: true
+  }
+
+  export type AnswersSumAggregateInputType = {
+    id?: true
+    problemId?: true
+    answerOrder?: true
+  }
+
+  export type AnswersMinAggregateInputType = {
+    id?: true
+    problemId?: true
+    daAnswer?: true
+    answerOrder?: true
+  }
+
+  export type AnswersMaxAggregateInputType = {
+    id?: true
+    problemId?: true
+    daAnswer?: true
+    answerOrder?: true
+  }
+
+  export type AnswersCountAggregateInputType = {
+    id?: true
+    problemId?: true
+    daAnswer?: true
+    answerOrder?: true
+    _all?: true
+  }
+
+  export type AnswersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which answers to aggregate.
+     */
+    where?: answersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of answers to fetch.
+     */
+    orderBy?: answersOrderByWithRelationInput | answersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: answersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned answers
+    **/
+    _count?: true | AnswersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AnswersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AnswersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnswersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnswersMaxAggregateInputType
+  }
+
+  export type GetAnswersAggregateType<T extends AnswersAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnswers]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnswers[P]>
+      : GetScalarType<T[P], AggregateAnswers[P]>
+  }
+
+
+
+
+  export type answersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: answersWhereInput
+    orderBy?: answersOrderByWithAggregationInput | answersOrderByWithAggregationInput[]
+    by: AnswersScalarFieldEnum[] | AnswersScalarFieldEnum
+    having?: answersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnswersCountAggregateInputType | true
+    _avg?: AnswersAvgAggregateInputType
+    _sum?: AnswersSumAggregateInputType
+    _min?: AnswersMinAggregateInputType
+    _max?: AnswersMaxAggregateInputType
+  }
+
+  export type AnswersGroupByOutputType = {
+    id: number
+    problemId: number
+    daAnswer: string
+    answerOrder: number
+    _count: AnswersCountAggregateOutputType | null
+    _avg: AnswersAvgAggregateOutputType | null
+    _sum: AnswersSumAggregateOutputType | null
+    _min: AnswersMinAggregateOutputType | null
+    _max: AnswersMaxAggregateOutputType | null
+  }
+
+  type GetAnswersGroupByPayload<T extends answersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AnswersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnswersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnswersGroupByOutputType[P]>
+            : GetScalarType<T[P], AnswersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type answersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    daAnswer?: boolean
+    answerOrder?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["answers"]>
+
+  export type answersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    daAnswer?: boolean
+    answerOrder?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["answers"]>
+
+  export type answersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    problemId?: boolean
+    daAnswer?: boolean
+    answerOrder?: boolean
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["answers"]>
+
+  export type answersSelectScalar = {
+    id?: boolean
+    problemId?: boolean
+    daAnswer?: boolean
+    answerOrder?: boolean
+  }
+
+  export type answersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "problemId" | "daAnswer" | "answerOrder", ExtArgs["result"]["answers"]>
+  export type answersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+  export type answersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+  export type answersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    problem?: boolean | problemsDefaultArgs<ExtArgs>
+  }
+
+  export type $answersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "answers"
+    objects: {
+      problem: Prisma.$problemsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      problemId: number
+      daAnswer: string
+      answerOrder: number
+    }, ExtArgs["result"]["answers"]>
+    composites: {}
+  }
+
+  type answersGetPayload<S extends boolean | null | undefined | answersDefaultArgs> = $Result.GetResult<Prisma.$answersPayload, S>
+
+  type answersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<answersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AnswersCountAggregateInputType | true
+    }
+
+  export interface answersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['answers'], meta: { name: 'answers' } }
+    /**
+     * Find zero or one Answers that matches the filter.
+     * @param {answersFindUniqueArgs} args - Arguments to find a Answers
+     * @example
+     * // Get one Answers
+     * const answers = await prisma.answers.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends answersFindUniqueArgs>(args: SelectSubset<T, answersFindUniqueArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Answers that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {answersFindUniqueOrThrowArgs} args - Arguments to find a Answers
+     * @example
+     * // Get one Answers
+     * const answers = await prisma.answers.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends answersFindUniqueOrThrowArgs>(args: SelectSubset<T, answersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Answers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersFindFirstArgs} args - Arguments to find a Answers
+     * @example
+     * // Get one Answers
+     * const answers = await prisma.answers.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends answersFindFirstArgs>(args?: SelectSubset<T, answersFindFirstArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Answers that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersFindFirstOrThrowArgs} args - Arguments to find a Answers
+     * @example
+     * // Get one Answers
+     * const answers = await prisma.answers.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends answersFindFirstOrThrowArgs>(args?: SelectSubset<T, answersFindFirstOrThrowArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Answers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Answers
+     * const answers = await prisma.answers.findMany()
+     * 
+     * // Get first 10 Answers
+     * const answers = await prisma.answers.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const answersWithIdOnly = await prisma.answers.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends answersFindManyArgs>(args?: SelectSubset<T, answersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Answers.
+     * @param {answersCreateArgs} args - Arguments to create a Answers.
+     * @example
+     * // Create one Answers
+     * const Answers = await prisma.answers.create({
+     *   data: {
+     *     // ... data to create a Answers
+     *   }
+     * })
+     * 
+     */
+    create<T extends answersCreateArgs>(args: SelectSubset<T, answersCreateArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Answers.
+     * @param {answersCreateManyArgs} args - Arguments to create many Answers.
+     * @example
+     * // Create many Answers
+     * const answers = await prisma.answers.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends answersCreateManyArgs>(args?: SelectSubset<T, answersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Answers and returns the data saved in the database.
+     * @param {answersCreateManyAndReturnArgs} args - Arguments to create many Answers.
+     * @example
+     * // Create many Answers
+     * const answers = await prisma.answers.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Answers and only return the `id`
+     * const answersWithIdOnly = await prisma.answers.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends answersCreateManyAndReturnArgs>(args?: SelectSubset<T, answersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Answers.
+     * @param {answersDeleteArgs} args - Arguments to delete one Answers.
+     * @example
+     * // Delete one Answers
+     * const Answers = await prisma.answers.delete({
+     *   where: {
+     *     // ... filter to delete one Answers
+     *   }
+     * })
+     * 
+     */
+    delete<T extends answersDeleteArgs>(args: SelectSubset<T, answersDeleteArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Answers.
+     * @param {answersUpdateArgs} args - Arguments to update one Answers.
+     * @example
+     * // Update one Answers
+     * const answers = await prisma.answers.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends answersUpdateArgs>(args: SelectSubset<T, answersUpdateArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Answers.
+     * @param {answersDeleteManyArgs} args - Arguments to filter Answers to delete.
+     * @example
+     * // Delete a few Answers
+     * const { count } = await prisma.answers.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends answersDeleteManyArgs>(args?: SelectSubset<T, answersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Answers
+     * const answers = await prisma.answers.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends answersUpdateManyArgs>(args: SelectSubset<T, answersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Answers and returns the data updated in the database.
+     * @param {answersUpdateManyAndReturnArgs} args - Arguments to update many Answers.
+     * @example
+     * // Update many Answers
+     * const answers = await prisma.answers.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Answers and only return the `id`
+     * const answersWithIdOnly = await prisma.answers.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends answersUpdateManyAndReturnArgs>(args: SelectSubset<T, answersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Answers.
+     * @param {answersUpsertArgs} args - Arguments to update or create a Answers.
+     * @example
+     * // Update or create a Answers
+     * const answers = await prisma.answers.upsert({
+     *   create: {
+     *     // ... data to create a Answers
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Answers we want to update
+     *   }
+     * })
+     */
+    upsert<T extends answersUpsertArgs>(args: SelectSubset<T, answersUpsertArgs<ExtArgs>>): Prisma__answersClient<$Result.GetResult<Prisma.$answersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersCountArgs} args - Arguments to filter Answers to count.
+     * @example
+     * // Count the number of Answers
+     * const count = await prisma.answers.count({
+     *   where: {
+     *     // ... the filter for the Answers we want to count
+     *   }
+     * })
+    **/
+    count<T extends answersCountArgs>(
+      args?: Subset<T, answersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnswersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnswersAggregateArgs>(args: Subset<T, AnswersAggregateArgs>): Prisma.PrismaPromise<GetAnswersAggregateType<T>>
+
+    /**
+     * Group by Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {answersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends answersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: answersGroupByArgs['orderBy'] }
+        : { orderBy?: answersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, answersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnswersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the answers model
+   */
+  readonly fields: answersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for answers.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__answersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    problem<T extends problemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, problemsDefaultArgs<ExtArgs>>): Prisma__problemsClient<$Result.GetResult<Prisma.$problemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the answers model
+   */
+  interface answersFieldRefs {
+    readonly id: FieldRef<"answers", 'Int'>
+    readonly problemId: FieldRef<"answers", 'Int'>
+    readonly daAnswer: FieldRef<"answers", 'String'>
+    readonly answerOrder: FieldRef<"answers", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * answers findUnique
+   */
+  export type answersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter, which answers to fetch.
+     */
+    where: answersWhereUniqueInput
+  }
+
+  /**
+   * answers findUniqueOrThrow
+   */
+  export type answersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter, which answers to fetch.
+     */
+    where: answersWhereUniqueInput
+  }
+
+  /**
+   * answers findFirst
+   */
+  export type answersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter, which answers to fetch.
+     */
+    where?: answersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of answers to fetch.
+     */
+    orderBy?: answersOrderByWithRelationInput | answersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for answers.
+     */
+    cursor?: answersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of answers.
+     */
+    distinct?: AnswersScalarFieldEnum | AnswersScalarFieldEnum[]
+  }
+
+  /**
+   * answers findFirstOrThrow
+   */
+  export type answersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter, which answers to fetch.
+     */
+    where?: answersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of answers to fetch.
+     */
+    orderBy?: answersOrderByWithRelationInput | answersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for answers.
+     */
+    cursor?: answersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of answers.
+     */
+    distinct?: AnswersScalarFieldEnum | AnswersScalarFieldEnum[]
+  }
+
+  /**
+   * answers findMany
+   */
+  export type answersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter, which answers to fetch.
+     */
+    where?: answersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of answers to fetch.
+     */
+    orderBy?: answersOrderByWithRelationInput | answersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing answers.
+     */
+    cursor?: answersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` answers.
+     */
+    skip?: number
+    distinct?: AnswersScalarFieldEnum | AnswersScalarFieldEnum[]
+  }
+
+  /**
+   * answers create
+   */
+  export type answersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a answers.
+     */
+    data: XOR<answersCreateInput, answersUncheckedCreateInput>
+  }
+
+  /**
+   * answers createMany
+   */
+  export type answersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many answers.
+     */
+    data: answersCreateManyInput | answersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * answers createManyAndReturn
+   */
+  export type answersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * The data used to create many answers.
+     */
+    data: answersCreateManyInput | answersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * answers update
+   */
+  export type answersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a answers.
+     */
+    data: XOR<answersUpdateInput, answersUncheckedUpdateInput>
+    /**
+     * Choose, which answers to update.
+     */
+    where: answersWhereUniqueInput
+  }
+
+  /**
+   * answers updateMany
+   */
+  export type answersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update answers.
+     */
+    data: XOR<answersUpdateManyMutationInput, answersUncheckedUpdateManyInput>
+    /**
+     * Filter which answers to update
+     */
+    where?: answersWhereInput
+    /**
+     * Limit how many answers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * answers updateManyAndReturn
+   */
+  export type answersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * The data used to update answers.
+     */
+    data: XOR<answersUpdateManyMutationInput, answersUncheckedUpdateManyInput>
+    /**
+     * Filter which answers to update
+     */
+    where?: answersWhereInput
+    /**
+     * Limit how many answers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * answers upsert
+   */
+  export type answersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the answers to update in case it exists.
+     */
+    where: answersWhereUniqueInput
+    /**
+     * In case the answers found by the `where` argument doesn't exist, create a new answers with this data.
+     */
+    create: XOR<answersCreateInput, answersUncheckedCreateInput>
+    /**
+     * In case the answers was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<answersUpdateInput, answersUncheckedUpdateInput>
+  }
+
+  /**
+   * answers delete
+   */
+  export type answersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+    /**
+     * Filter which answers to delete.
+     */
+    where: answersWhereUniqueInput
+  }
+
+  /**
+   * answers deleteMany
+   */
+  export type answersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which answers to delete
+     */
+    where?: answersWhereInput
+    /**
+     * Limit how many answers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * answers without action
+   */
+  export type answersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the answers
+     */
+    select?: answersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the answers
+     */
+    omit?: answersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: answersInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5803,6 +9452,39 @@ export namespace Prisma {
   };
 
   export type LikesScalarFieldEnum = (typeof LikesScalarFieldEnum)[keyof typeof LikesScalarFieldEnum]
+
+
+  export const ProblemsScalarFieldEnum: {
+    id: 'id',
+    userid: 'userid',
+    name: 'name',
+    difficulty: 'difficulty',
+    desc: 'desc',
+    startCode: 'startCode',
+    testCaseCode: 'testCaseCode'
+  };
+
+  export type ProblemsScalarFieldEnum = (typeof ProblemsScalarFieldEnum)[keyof typeof ProblemsScalarFieldEnum]
+
+
+  export const QuestionsScalarFieldEnum: {
+    id: 'id',
+    problemId: 'problemId',
+    questionOrder: 'questionOrder',
+    daQuestion: 'daQuestion'
+  };
+
+  export type QuestionsScalarFieldEnum = (typeof QuestionsScalarFieldEnum)[keyof typeof QuestionsScalarFieldEnum]
+
+
+  export const AnswersScalarFieldEnum: {
+    id: 'id',
+    problemId: 'problemId',
+    daAnswer: 'daAnswer',
+    answerOrder: 'answerOrder'
+  };
+
+  export type AnswersScalarFieldEnum = (typeof AnswersScalarFieldEnum)[keyof typeof AnswersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6142,6 +9824,180 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"likes"> | Date | string
   }
 
+  export type problemsWhereInput = {
+    AND?: problemsWhereInput | problemsWhereInput[]
+    OR?: problemsWhereInput[]
+    NOT?: problemsWhereInput | problemsWhereInput[]
+    id?: IntFilter<"problems"> | number
+    userid?: IntFilter<"problems"> | number
+    name?: StringFilter<"problems"> | string
+    difficulty?: StringFilter<"problems"> | string
+    desc?: StringFilter<"problems"> | string
+    startCode?: StringFilter<"problems"> | string
+    testCaseCode?: StringFilter<"problems"> | string
+    answers?: AnswersListRelationFilter
+    questions?: QuestionsListRelationFilter
+  }
+
+  export type problemsOrderByWithRelationInput = {
+    id?: SortOrder
+    userid?: SortOrder
+    name?: SortOrder
+    difficulty?: SortOrder
+    desc?: SortOrder
+    startCode?: SortOrder
+    testCaseCode?: SortOrder
+    answers?: answersOrderByRelationAggregateInput
+    questions?: questionsOrderByRelationAggregateInput
+  }
+
+  export type problemsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: problemsWhereInput | problemsWhereInput[]
+    OR?: problemsWhereInput[]
+    NOT?: problemsWhereInput | problemsWhereInput[]
+    userid?: IntFilter<"problems"> | number
+    name?: StringFilter<"problems"> | string
+    difficulty?: StringFilter<"problems"> | string
+    desc?: StringFilter<"problems"> | string
+    startCode?: StringFilter<"problems"> | string
+    testCaseCode?: StringFilter<"problems"> | string
+    answers?: AnswersListRelationFilter
+    questions?: QuestionsListRelationFilter
+  }, "id">
+
+  export type problemsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userid?: SortOrder
+    name?: SortOrder
+    difficulty?: SortOrder
+    desc?: SortOrder
+    startCode?: SortOrder
+    testCaseCode?: SortOrder
+    _count?: problemsCountOrderByAggregateInput
+    _avg?: problemsAvgOrderByAggregateInput
+    _max?: problemsMaxOrderByAggregateInput
+    _min?: problemsMinOrderByAggregateInput
+    _sum?: problemsSumOrderByAggregateInput
+  }
+
+  export type problemsScalarWhereWithAggregatesInput = {
+    AND?: problemsScalarWhereWithAggregatesInput | problemsScalarWhereWithAggregatesInput[]
+    OR?: problemsScalarWhereWithAggregatesInput[]
+    NOT?: problemsScalarWhereWithAggregatesInput | problemsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"problems"> | number
+    userid?: IntWithAggregatesFilter<"problems"> | number
+    name?: StringWithAggregatesFilter<"problems"> | string
+    difficulty?: StringWithAggregatesFilter<"problems"> | string
+    desc?: StringWithAggregatesFilter<"problems"> | string
+    startCode?: StringWithAggregatesFilter<"problems"> | string
+    testCaseCode?: StringWithAggregatesFilter<"problems"> | string
+  }
+
+  export type questionsWhereInput = {
+    AND?: questionsWhereInput | questionsWhereInput[]
+    OR?: questionsWhereInput[]
+    NOT?: questionsWhereInput | questionsWhereInput[]
+    id?: IntFilter<"questions"> | number
+    problemId?: IntFilter<"questions"> | number
+    questionOrder?: IntFilter<"questions"> | number
+    daQuestion?: StringFilter<"questions"> | string
+    problem?: XOR<ProblemsScalarRelationFilter, problemsWhereInput>
+  }
+
+  export type questionsOrderByWithRelationInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+    daQuestion?: SortOrder
+    problem?: problemsOrderByWithRelationInput
+  }
+
+  export type questionsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: questionsWhereInput | questionsWhereInput[]
+    OR?: questionsWhereInput[]
+    NOT?: questionsWhereInput | questionsWhereInput[]
+    problemId?: IntFilter<"questions"> | number
+    questionOrder?: IntFilter<"questions"> | number
+    daQuestion?: StringFilter<"questions"> | string
+    problem?: XOR<ProblemsScalarRelationFilter, problemsWhereInput>
+  }, "id">
+
+  export type questionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+    daQuestion?: SortOrder
+    _count?: questionsCountOrderByAggregateInput
+    _avg?: questionsAvgOrderByAggregateInput
+    _max?: questionsMaxOrderByAggregateInput
+    _min?: questionsMinOrderByAggregateInput
+    _sum?: questionsSumOrderByAggregateInput
+  }
+
+  export type questionsScalarWhereWithAggregatesInput = {
+    AND?: questionsScalarWhereWithAggregatesInput | questionsScalarWhereWithAggregatesInput[]
+    OR?: questionsScalarWhereWithAggregatesInput[]
+    NOT?: questionsScalarWhereWithAggregatesInput | questionsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"questions"> | number
+    problemId?: IntWithAggregatesFilter<"questions"> | number
+    questionOrder?: IntWithAggregatesFilter<"questions"> | number
+    daQuestion?: StringWithAggregatesFilter<"questions"> | string
+  }
+
+  export type answersWhereInput = {
+    AND?: answersWhereInput | answersWhereInput[]
+    OR?: answersWhereInput[]
+    NOT?: answersWhereInput | answersWhereInput[]
+    id?: IntFilter<"answers"> | number
+    problemId?: IntFilter<"answers"> | number
+    daAnswer?: StringFilter<"answers"> | string
+    answerOrder?: IntFilter<"answers"> | number
+    problem?: XOR<ProblemsScalarRelationFilter, problemsWhereInput>
+  }
+
+  export type answersOrderByWithRelationInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    daAnswer?: SortOrder
+    answerOrder?: SortOrder
+    problem?: problemsOrderByWithRelationInput
+  }
+
+  export type answersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: answersWhereInput | answersWhereInput[]
+    OR?: answersWhereInput[]
+    NOT?: answersWhereInput | answersWhereInput[]
+    problemId?: IntFilter<"answers"> | number
+    daAnswer?: StringFilter<"answers"> | string
+    answerOrder?: IntFilter<"answers"> | number
+    problem?: XOR<ProblemsScalarRelationFilter, problemsWhereInput>
+  }, "id">
+
+  export type answersOrderByWithAggregationInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    daAnswer?: SortOrder
+    answerOrder?: SortOrder
+    _count?: answersCountOrderByAggregateInput
+    _avg?: answersAvgOrderByAggregateInput
+    _max?: answersMaxOrderByAggregateInput
+    _min?: answersMinOrderByAggregateInput
+    _sum?: answersSumOrderByAggregateInput
+  }
+
+  export type answersScalarWhereWithAggregatesInput = {
+    AND?: answersScalarWhereWithAggregatesInput | answersScalarWhereWithAggregatesInput[]
+    OR?: answersScalarWhereWithAggregatesInput[]
+    NOT?: answersScalarWhereWithAggregatesInput | answersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"answers"> | number
+    problemId?: IntWithAggregatesFilter<"answers"> | number
+    daAnswer?: StringWithAggregatesFilter<"answers"> | string
+    answerOrder?: IntWithAggregatesFilter<"answers"> | number
+  }
+
   export type usersCreateInput = {
     email: string
     name: string
@@ -6363,6 +10219,171 @@ export namespace Prisma {
     userid?: IntFieldUpdateOperationsInput | number
     postid?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type problemsCreateInput = {
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    answers?: answersCreateNestedManyWithoutProblemInput
+    questions?: questionsCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsUncheckedCreateInput = {
+    id?: number
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    answers?: answersUncheckedCreateNestedManyWithoutProblemInput
+    questions?: questionsUncheckedCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsUpdateInput = {
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    answers?: answersUpdateManyWithoutProblemNestedInput
+    questions?: questionsUpdateManyWithoutProblemNestedInput
+  }
+
+  export type problemsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    answers?: answersUncheckedUpdateManyWithoutProblemNestedInput
+    questions?: questionsUncheckedUpdateManyWithoutProblemNestedInput
+  }
+
+  export type problemsCreateManyInput = {
+    id?: number
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+  }
+
+  export type problemsUpdateManyMutationInput = {
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type problemsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type questionsCreateInput = {
+    questionOrder: number
+    daQuestion?: string
+    problem: problemsCreateNestedOneWithoutQuestionsInput
+  }
+
+  export type questionsUncheckedCreateInput = {
+    id?: number
+    problemId: number
+    questionOrder: number
+    daQuestion?: string
+  }
+
+  export type questionsUpdateInput = {
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+    problem?: problemsUpdateOneRequiredWithoutQuestionsNestedInput
+  }
+
+  export type questionsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    problemId?: IntFieldUpdateOperationsInput | number
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type questionsCreateManyInput = {
+    id?: number
+    problemId: number
+    questionOrder: number
+    daQuestion?: string
+  }
+
+  export type questionsUpdateManyMutationInput = {
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type questionsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    problemId?: IntFieldUpdateOperationsInput | number
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type answersCreateInput = {
+    daAnswer?: string
+    answerOrder: number
+    problem: problemsCreateNestedOneWithoutAnswersInput
+  }
+
+  export type answersUncheckedCreateInput = {
+    id?: number
+    problemId: number
+    daAnswer?: string
+    answerOrder: number
+  }
+
+  export type answersUpdateInput = {
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+    problem?: problemsUpdateOneRequiredWithoutAnswersNestedInput
+  }
+
+  export type answersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    problemId?: IntFieldUpdateOperationsInput | number
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type answersCreateManyInput = {
+    id?: number
+    problemId: number
+    daAnswer?: string
+    answerOrder: number
+  }
+
+  export type answersUpdateManyMutationInput = {
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type answersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    problemId?: IntFieldUpdateOperationsInput | number
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -6706,6 +10727,137 @@ export namespace Prisma {
     postid?: SortOrder
   }
 
+  export type AnswersListRelationFilter = {
+    every?: answersWhereInput
+    some?: answersWhereInput
+    none?: answersWhereInput
+  }
+
+  export type QuestionsListRelationFilter = {
+    every?: questionsWhereInput
+    some?: questionsWhereInput
+    none?: questionsWhereInput
+  }
+
+  export type answersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type questionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type problemsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userid?: SortOrder
+    name?: SortOrder
+    difficulty?: SortOrder
+    desc?: SortOrder
+    startCode?: SortOrder
+    testCaseCode?: SortOrder
+  }
+
+  export type problemsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userid?: SortOrder
+  }
+
+  export type problemsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userid?: SortOrder
+    name?: SortOrder
+    difficulty?: SortOrder
+    desc?: SortOrder
+    startCode?: SortOrder
+    testCaseCode?: SortOrder
+  }
+
+  export type problemsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userid?: SortOrder
+    name?: SortOrder
+    difficulty?: SortOrder
+    desc?: SortOrder
+    startCode?: SortOrder
+    testCaseCode?: SortOrder
+  }
+
+  export type problemsSumOrderByAggregateInput = {
+    id?: SortOrder
+    userid?: SortOrder
+  }
+
+  export type ProblemsScalarRelationFilter = {
+    is?: problemsWhereInput
+    isNot?: problemsWhereInput
+  }
+
+  export type questionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+    daQuestion?: SortOrder
+  }
+
+  export type questionsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+  }
+
+  export type questionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+    daQuestion?: SortOrder
+  }
+
+  export type questionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+    daQuestion?: SortOrder
+  }
+
+  export type questionsSumOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    questionOrder?: SortOrder
+  }
+
+  export type answersCountOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    daAnswer?: SortOrder
+    answerOrder?: SortOrder
+  }
+
+  export type answersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    answerOrder?: SortOrder
+  }
+
+  export type answersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    daAnswer?: SortOrder
+    answerOrder?: SortOrder
+  }
+
+  export type answersMinOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    daAnswer?: SortOrder
+    answerOrder?: SortOrder
+  }
+
+  export type answersSumOrderByAggregateInput = {
+    id?: SortOrder
+    problemId?: SortOrder
+    answerOrder?: SortOrder
+  }
+
   export type profilesCreateNestedOneWithoutUserInput = {
     create?: XOR<profilesCreateWithoutUserInput, profilesUncheckedCreateWithoutUserInput>
     connectOrCreate?: profilesCreateOrConnectWithoutUserInput
@@ -7008,6 +11160,118 @@ export namespace Prisma {
     upsert?: postsUpsertWithoutLikesInput
     connect?: postsWhereUniqueInput
     update?: XOR<XOR<postsUpdateToOneWithWhereWithoutLikesInput, postsUpdateWithoutLikesInput>, postsUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type answersCreateNestedManyWithoutProblemInput = {
+    create?: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput> | answersCreateWithoutProblemInput[] | answersUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: answersCreateOrConnectWithoutProblemInput | answersCreateOrConnectWithoutProblemInput[]
+    createMany?: answersCreateManyProblemInputEnvelope
+    connect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+  }
+
+  export type questionsCreateNestedManyWithoutProblemInput = {
+    create?: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput> | questionsCreateWithoutProblemInput[] | questionsUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: questionsCreateOrConnectWithoutProblemInput | questionsCreateOrConnectWithoutProblemInput[]
+    createMany?: questionsCreateManyProblemInputEnvelope
+    connect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+  }
+
+  export type answersUncheckedCreateNestedManyWithoutProblemInput = {
+    create?: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput> | answersCreateWithoutProblemInput[] | answersUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: answersCreateOrConnectWithoutProblemInput | answersCreateOrConnectWithoutProblemInput[]
+    createMany?: answersCreateManyProblemInputEnvelope
+    connect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+  }
+
+  export type questionsUncheckedCreateNestedManyWithoutProblemInput = {
+    create?: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput> | questionsCreateWithoutProblemInput[] | questionsUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: questionsCreateOrConnectWithoutProblemInput | questionsCreateOrConnectWithoutProblemInput[]
+    createMany?: questionsCreateManyProblemInputEnvelope
+    connect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+  }
+
+  export type answersUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput> | answersCreateWithoutProblemInput[] | answersUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: answersCreateOrConnectWithoutProblemInput | answersCreateOrConnectWithoutProblemInput[]
+    upsert?: answersUpsertWithWhereUniqueWithoutProblemInput | answersUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: answersCreateManyProblemInputEnvelope
+    set?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    disconnect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    delete?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    connect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    update?: answersUpdateWithWhereUniqueWithoutProblemInput | answersUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: answersUpdateManyWithWhereWithoutProblemInput | answersUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: answersScalarWhereInput | answersScalarWhereInput[]
+  }
+
+  export type questionsUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput> | questionsCreateWithoutProblemInput[] | questionsUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: questionsCreateOrConnectWithoutProblemInput | questionsCreateOrConnectWithoutProblemInput[]
+    upsert?: questionsUpsertWithWhereUniqueWithoutProblemInput | questionsUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: questionsCreateManyProblemInputEnvelope
+    set?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    disconnect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    delete?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    connect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    update?: questionsUpdateWithWhereUniqueWithoutProblemInput | questionsUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: questionsUpdateManyWithWhereWithoutProblemInput | questionsUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: questionsScalarWhereInput | questionsScalarWhereInput[]
+  }
+
+  export type answersUncheckedUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput> | answersCreateWithoutProblemInput[] | answersUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: answersCreateOrConnectWithoutProblemInput | answersCreateOrConnectWithoutProblemInput[]
+    upsert?: answersUpsertWithWhereUniqueWithoutProblemInput | answersUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: answersCreateManyProblemInputEnvelope
+    set?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    disconnect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    delete?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    connect?: answersWhereUniqueInput | answersWhereUniqueInput[]
+    update?: answersUpdateWithWhereUniqueWithoutProblemInput | answersUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: answersUpdateManyWithWhereWithoutProblemInput | answersUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: answersScalarWhereInput | answersScalarWhereInput[]
+  }
+
+  export type questionsUncheckedUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput> | questionsCreateWithoutProblemInput[] | questionsUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: questionsCreateOrConnectWithoutProblemInput | questionsCreateOrConnectWithoutProblemInput[]
+    upsert?: questionsUpsertWithWhereUniqueWithoutProblemInput | questionsUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: questionsCreateManyProblemInputEnvelope
+    set?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    disconnect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    delete?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    connect?: questionsWhereUniqueInput | questionsWhereUniqueInput[]
+    update?: questionsUpdateWithWhereUniqueWithoutProblemInput | questionsUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: questionsUpdateManyWithWhereWithoutProblemInput | questionsUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: questionsScalarWhereInput | questionsScalarWhereInput[]
+  }
+
+  export type problemsCreateNestedOneWithoutQuestionsInput = {
+    create?: XOR<problemsCreateWithoutQuestionsInput, problemsUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: problemsCreateOrConnectWithoutQuestionsInput
+    connect?: problemsWhereUniqueInput
+  }
+
+  export type problemsUpdateOneRequiredWithoutQuestionsNestedInput = {
+    create?: XOR<problemsCreateWithoutQuestionsInput, problemsUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: problemsCreateOrConnectWithoutQuestionsInput
+    upsert?: problemsUpsertWithoutQuestionsInput
+    connect?: problemsWhereUniqueInput
+    update?: XOR<XOR<problemsUpdateToOneWithWhereWithoutQuestionsInput, problemsUpdateWithoutQuestionsInput>, problemsUncheckedUpdateWithoutQuestionsInput>
+  }
+
+  export type problemsCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<problemsCreateWithoutAnswersInput, problemsUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: problemsCreateOrConnectWithoutAnswersInput
+    connect?: problemsWhereUniqueInput
+  }
+
+  export type problemsUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<problemsCreateWithoutAnswersInput, problemsUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: problemsCreateOrConnectWithoutAnswersInput
+    upsert?: problemsUpsertWithoutAnswersInput
+    connect?: problemsWhereUniqueInput
+    update?: XOR<XOR<problemsUpdateToOneWithWhereWithoutAnswersInput, problemsUpdateWithoutAnswersInput>, problemsUncheckedUpdateWithoutAnswersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -7699,6 +11963,216 @@ export namespace Prisma {
     replies?: postsUncheckedUpdateManyWithoutParentNestedInput
   }
 
+  export type answersCreateWithoutProblemInput = {
+    daAnswer?: string
+    answerOrder: number
+  }
+
+  export type answersUncheckedCreateWithoutProblemInput = {
+    id?: number
+    daAnswer?: string
+    answerOrder: number
+  }
+
+  export type answersCreateOrConnectWithoutProblemInput = {
+    where: answersWhereUniqueInput
+    create: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput>
+  }
+
+  export type answersCreateManyProblemInputEnvelope = {
+    data: answersCreateManyProblemInput | answersCreateManyProblemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type questionsCreateWithoutProblemInput = {
+    questionOrder: number
+    daQuestion?: string
+  }
+
+  export type questionsUncheckedCreateWithoutProblemInput = {
+    id?: number
+    questionOrder: number
+    daQuestion?: string
+  }
+
+  export type questionsCreateOrConnectWithoutProblemInput = {
+    where: questionsWhereUniqueInput
+    create: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput>
+  }
+
+  export type questionsCreateManyProblemInputEnvelope = {
+    data: questionsCreateManyProblemInput | questionsCreateManyProblemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type answersUpsertWithWhereUniqueWithoutProblemInput = {
+    where: answersWhereUniqueInput
+    update: XOR<answersUpdateWithoutProblemInput, answersUncheckedUpdateWithoutProblemInput>
+    create: XOR<answersCreateWithoutProblemInput, answersUncheckedCreateWithoutProblemInput>
+  }
+
+  export type answersUpdateWithWhereUniqueWithoutProblemInput = {
+    where: answersWhereUniqueInput
+    data: XOR<answersUpdateWithoutProblemInput, answersUncheckedUpdateWithoutProblemInput>
+  }
+
+  export type answersUpdateManyWithWhereWithoutProblemInput = {
+    where: answersScalarWhereInput
+    data: XOR<answersUpdateManyMutationInput, answersUncheckedUpdateManyWithoutProblemInput>
+  }
+
+  export type answersScalarWhereInput = {
+    AND?: answersScalarWhereInput | answersScalarWhereInput[]
+    OR?: answersScalarWhereInput[]
+    NOT?: answersScalarWhereInput | answersScalarWhereInput[]
+    id?: IntFilter<"answers"> | number
+    problemId?: IntFilter<"answers"> | number
+    daAnswer?: StringFilter<"answers"> | string
+    answerOrder?: IntFilter<"answers"> | number
+  }
+
+  export type questionsUpsertWithWhereUniqueWithoutProblemInput = {
+    where: questionsWhereUniqueInput
+    update: XOR<questionsUpdateWithoutProblemInput, questionsUncheckedUpdateWithoutProblemInput>
+    create: XOR<questionsCreateWithoutProblemInput, questionsUncheckedCreateWithoutProblemInput>
+  }
+
+  export type questionsUpdateWithWhereUniqueWithoutProblemInput = {
+    where: questionsWhereUniqueInput
+    data: XOR<questionsUpdateWithoutProblemInput, questionsUncheckedUpdateWithoutProblemInput>
+  }
+
+  export type questionsUpdateManyWithWhereWithoutProblemInput = {
+    where: questionsScalarWhereInput
+    data: XOR<questionsUpdateManyMutationInput, questionsUncheckedUpdateManyWithoutProblemInput>
+  }
+
+  export type questionsScalarWhereInput = {
+    AND?: questionsScalarWhereInput | questionsScalarWhereInput[]
+    OR?: questionsScalarWhereInput[]
+    NOT?: questionsScalarWhereInput | questionsScalarWhereInput[]
+    id?: IntFilter<"questions"> | number
+    problemId?: IntFilter<"questions"> | number
+    questionOrder?: IntFilter<"questions"> | number
+    daQuestion?: StringFilter<"questions"> | string
+  }
+
+  export type problemsCreateWithoutQuestionsInput = {
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    answers?: answersCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsUncheckedCreateWithoutQuestionsInput = {
+    id?: number
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    answers?: answersUncheckedCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsCreateOrConnectWithoutQuestionsInput = {
+    where: problemsWhereUniqueInput
+    create: XOR<problemsCreateWithoutQuestionsInput, problemsUncheckedCreateWithoutQuestionsInput>
+  }
+
+  export type problemsUpsertWithoutQuestionsInput = {
+    update: XOR<problemsUpdateWithoutQuestionsInput, problemsUncheckedUpdateWithoutQuestionsInput>
+    create: XOR<problemsCreateWithoutQuestionsInput, problemsUncheckedCreateWithoutQuestionsInput>
+    where?: problemsWhereInput
+  }
+
+  export type problemsUpdateToOneWithWhereWithoutQuestionsInput = {
+    where?: problemsWhereInput
+    data: XOR<problemsUpdateWithoutQuestionsInput, problemsUncheckedUpdateWithoutQuestionsInput>
+  }
+
+  export type problemsUpdateWithoutQuestionsInput = {
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    answers?: answersUpdateManyWithoutProblemNestedInput
+  }
+
+  export type problemsUncheckedUpdateWithoutQuestionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    answers?: answersUncheckedUpdateManyWithoutProblemNestedInput
+  }
+
+  export type problemsCreateWithoutAnswersInput = {
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    questions?: questionsCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsUncheckedCreateWithoutAnswersInput = {
+    id?: number
+    userid: number
+    name?: string
+    difficulty?: string
+    desc?: string
+    startCode?: string
+    testCaseCode?: string
+    questions?: questionsUncheckedCreateNestedManyWithoutProblemInput
+  }
+
+  export type problemsCreateOrConnectWithoutAnswersInput = {
+    where: problemsWhereUniqueInput
+    create: XOR<problemsCreateWithoutAnswersInput, problemsUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type problemsUpsertWithoutAnswersInput = {
+    update: XOR<problemsUpdateWithoutAnswersInput, problemsUncheckedUpdateWithoutAnswersInput>
+    create: XOR<problemsCreateWithoutAnswersInput, problemsUncheckedCreateWithoutAnswersInput>
+    where?: problemsWhereInput
+  }
+
+  export type problemsUpdateToOneWithWhereWithoutAnswersInput = {
+    where?: problemsWhereInput
+    data: XOR<problemsUpdateWithoutAnswersInput, problemsUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type problemsUpdateWithoutAnswersInput = {
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    questions?: questionsUpdateManyWithoutProblemNestedInput
+  }
+
+  export type problemsUncheckedUpdateWithoutAnswersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userid?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    difficulty?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    startCode?: StringFieldUpdateOperationsInput | string
+    testCaseCode?: StringFieldUpdateOperationsInput | string
+    questions?: questionsUncheckedUpdateManyWithoutProblemNestedInput
+  }
+
   export type postsCreateManyPosterInput = {
     id?: number
     text?: string | null
@@ -7821,6 +12295,52 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedByUser?: BoolFieldUpdateOperationsInput | boolean
     imageURL?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type answersCreateManyProblemInput = {
+    id?: number
+    daAnswer?: string
+    answerOrder: number
+  }
+
+  export type questionsCreateManyProblemInput = {
+    id?: number
+    questionOrder: number
+    daQuestion?: string
+  }
+
+  export type answersUpdateWithoutProblemInput = {
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type answersUncheckedUpdateWithoutProblemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type answersUncheckedUpdateManyWithoutProblemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    daAnswer?: StringFieldUpdateOperationsInput | string
+    answerOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type questionsUpdateWithoutProblemInput = {
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type questionsUncheckedUpdateWithoutProblemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type questionsUncheckedUpdateManyWithoutProblemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    questionOrder?: IntFieldUpdateOperationsInput | number
+    daQuestion?: StringFieldUpdateOperationsInput | string
   }
 
 

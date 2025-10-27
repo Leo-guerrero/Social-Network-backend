@@ -151,6 +151,30 @@ exports.Prisma.LikesScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProblemsScalarFieldEnum = {
+  id: 'id',
+  userid: 'userid',
+  name: 'name',
+  difficulty: 'difficulty',
+  desc: 'desc',
+  startCode: 'startCode',
+  testCaseCode: 'testCaseCode'
+};
+
+exports.Prisma.QuestionsScalarFieldEnum = {
+  id: 'id',
+  problemId: 'problemId',
+  questionOrder: 'questionOrder',
+  daQuestion: 'daQuestion'
+};
+
+exports.Prisma.AnswersScalarFieldEnum = {
+  id: 'id',
+  problemId: 'problemId',
+  daAnswer: 'daAnswer',
+  answerOrder: 'answerOrder'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -171,7 +195,10 @@ exports.Prisma.ModelName = {
   users: 'users',
   profiles: 'profiles',
   posts: 'posts',
-  likes: 'likes'
+  likes: 'likes',
+  problems: 'problems',
+  questions: 'questions',
+  answers: 'answers'
 };
 
 /**
