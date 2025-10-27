@@ -527,7 +527,12 @@ app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<
 
 app.get('/get/all/Problems', async (req, res) => {
 
-  const problems = await prisma.problems.findMany();
+  const problems = await prisma.problems.findMany( {
+    orderBy: {
+      id: 'asc',
+    },
+  },
+  );
 
   res.json(problems);
 });
