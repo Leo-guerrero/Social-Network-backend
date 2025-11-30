@@ -564,5 +564,203 @@ app.get('/get/specific/Problem/:id', async (req, res) => {
 
 });
 
+// ✅ FOLLOW
+app.post('/follow', async (req, res) => {
+  try {
+    let { followerId, followingId } = req.body; 
+    followerId = parseInt(followerId); 
+    followingId = parseInt(followingId);
+
+    if (!followerId || !followingId) {
+      res.status(400).json({ error: "Missing user IDs" });
+      return;
+    }
+
+    if (followerId === followingId) {
+      res.status(400).json({ error: "You cannot follow yourself" });
+      return;
+    }
+
+    const existingFollow = await prisma.follows.findUnique({
+      where: { followerId_followingId: { followerId, followingId } },
+    });
+
+    if (existingFollow) {
+      res.status(200).json({ message: "Already following" });
+      return;
+    }
+
+    const follow = await prisma.follows.create({
+      data: { followerId, followingId },
+    });
+
+    res.status(201).json({ message: "Followed successfully", follow });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error following user" });
+  }
+});
+
+// ✅ UNFOLLOW
+app.post('/unfollow', async (req, res) => {
+  try {
+    let { followerId, followingId } = req.body;
+    followerId = parseInt(followerId);
+    followingId = parseInt(followingId);
+
+    const deleted = await prisma.follows.deleteMany({
+      where: { followerId, followingId },
+    });
+
+    if (deleted.count > 0) {
+      res.status(200).json({ message: "Unfollowed successfully" });
+    } else {
+      res.status(404).json({ message: "Not currently following" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error unfollowing user" });
+  }
+});
+
+// GET followers of a user
+app.get('/followers/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+  try {
+    const followers = await prisma.follows.findMany({
+      where: { followingId: userId },
+      include: { follower: true },
+    });
+
+    /*
+    const followersTrans = await Promise.all(
+      followers.map(async (folli) => {
+        
+        follower: {
+          ...folli.follower,
+          profileURL: await getImageURL(profileURL);
+        }
+        
+      })
+    ); */
+
+    res.json(followers);
+    //res.json(followers.map((f: any) => f.follower));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching followers" });
+  }
+});
+
+// GET who a user is following
+app.get('/following/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+  try {
+    const following = await prisma.follows.findMany({
+      where: { followerId: userId },
+      include: { following: true },
+    });
+    res.json(following.map((f: any) => f.following));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching following" });
+  }
+});
+
+app.get('/User/follows/list/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  const following = await prisma.follows.findMany({
+    where: {
+      followerId: userId,
+    },
+    include: {
+      following: true,
+    },
+  });
+
+  res.json(following);
+});
+
+app.post('/create/Solved/problem/:id', async (req, res) => {
+  const problemid = parseInt(req.params.id);
+  const {currentUserCode, userid, numSolved } = req.body;
+
+
+  const AlreadySolvedQ = await prisma.solvedProblems.findFirst({
+    where: {
+      userid: userid,
+    },
+  })
+
+  if(!AlreadySolvedQ){
+    const points = numSolved * 10;
+    const updateUsersScore = await prisma.users.update({
+      
+      where: {
+        id: userid,
+      },
+      data: {
+        score: {
+          increment: points,
+        },
+      },
+    });
+  }
+
+  const solvedProblem = await prisma.solvedProblems.create({
+    data: { currentUserCode,
+       userid, problemid, numSolved
+      }
+  });
+
+
+  res.json(solvedProblem);
+});
+
+app.get('/grab/users/submitted/problems/:id', async (req, res) => {
+  const userid = parseInt(req.params.id);
+
+  const submittedProblems = await prisma.solvedProblems.findMany({
+    where: {
+      userid: userid,
+      
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    distinct: ['problemid'],
+    include: {
+      problem: true,
+    },
+    
+  });
+
+  res.json(submittedProblems);
+});
+
+app.get('/get/history/ofUsersSubmits/:id', async (req, res) => {
+  const solvedProblemid = parseInt(req.params.id);
+  const userid = Number(req.query.extra);
+
+  const solvedProblems = await prisma.solvedProblems.findMany({
+    where: {
+      userid: userid,
+      problem: {
+        id: solvedProblemid,
+      }
+    },
+    include:{
+      problem: true,
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  })
+
+  res.json(solvedProblems);
+});
+  
+
 
 
