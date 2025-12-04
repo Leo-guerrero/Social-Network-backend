@@ -32,36 +32,38 @@ app.get('/', (req, res) => {
 app.get('/Users', async (req, res) => {
   const users = await prisma.users.findMany();
 
-  
+
   res.json(users);
 });
 
 app.put('/profilesUpdate/:id', async (req, res) => {
-    const userid = parseInt(req.params.id);
-    const {bio} = req.body;
+  const userid = parseInt(req.params.id);
+  const { bio } = req.body;
 
-    try{
+  try {
 
-      const updateProfile = await prisma.profiles.update({
-        where:{userid: userid},
-        data: { bio },
-      });
+    const updateProfile = await prisma.profiles.update({
+      where: { userid: userid },
+      data: { bio },
+    });
 
-      res.json(updateProfile);
+    res.json(updateProfile);
 
-    } catch(error){
+  } catch (error) {
 
-    }
+  }
 
 });
 
-app.get('/profiles/:id', async (req, res) =>{
+app.get('/profiles/:id', async (req, res) => {
   const userid = parseInt(req.params.id);
 
 
-  const profile = await prisma.profiles.findUnique({where: {
-    userid: userid,
-  }});
+  const profile = await prisma.profiles.findUnique({
+    where: {
+      userid: userid,
+    }
+  });
 
   res.json(profile);
 
@@ -75,36 +77,38 @@ app.post('/Users', async (req, res) => {
   const user = await prisma.users.create({
 
     data: { name, email, password },
-    
+
 
   });
 
   const profile = await prisma.profiles.create({
-    data: { userid: user.id , bio: "" },
+    data: { userid: user.id, bio: "" },
   });
 
-  
 
-  if (user){
 
-    const {password, ...noPasswordUser} = user;
+  if (user) {
+
+    const { password, ...noPasswordUser } = user;
     res.json(noPasswordUser);
   }
-  
+
 });
 
 
 app.post('/LoginCheck', async (request, response) => {
-  const {email, password} = request.body;
+  const { email, password } = request.body;
 
-  const user = await prisma.users.findUnique({where:{
-    email: email,
-  }});
+  const user = await prisma.users.findUnique({
+    where: {
+      email: email,
+    }
+  });
 
-  if (user && user.password === password){
-    const { password, ...safeuser} = user;
+  if (user && user.password === password) {
+    const { password, ...safeuser } = user;
     response.json(safeuser);
-  } 
+  }
 
 });
 
@@ -112,48 +116,48 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-app.post('/CreatePost/:id', upload.single('file'), async (req, res) =>{
-    const userid = parseInt(req.params.id);
+app.post('/CreatePost/:id', upload.single('file'), async (req, res) => {
+  const userid = parseInt(req.params.id);
 
-    const file = req.file;
-    const {text} = req.body;
+  const file = req.file;
+  const { text } = req.body;
 
-    let uniqueFilename = "";
-    if(file){
+  let uniqueFilename = "";
+  if (file) {
 
-      let contentType = file?.mimetype;
-      const ext = file.originalname.split(".").pop()?.toLowerCase();
+    let contentType = file?.mimetype;
+    const ext = file.originalname.split(".").pop()?.toLowerCase();
 
-      if(ext == "mp4"){
-        contentType = "video/mp4";
-      }
-      
-      uniqueFilename = `${uuidv4()}-${file?.originalname}`
+    if (ext == "mp4") {
+      contentType = "video/mp4";
+    }
 
-      const command = new PutObjectCommand({
-        Bucket: process.env.S3_BUCKET_NAME,
-        Key: uniqueFilename,
-        Body: file?.buffer, 
-        ContentType: contentType,
-      });
-    
+    uniqueFilename = `${uuidv4()}-${file?.originalname}`
 
-      await s3.send(command);
+    const command = new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: uniqueFilename,
+      Body: file?.buffer,
+      ContentType: contentType,
+    });
+
+
+    await s3.send(command);
 
     console.log("✅ Uploaded file:", uniqueFilename);
-    }
-    res.json({filename: uniqueFilename});
-    
-    const post = await prisma.posts.create({
-      data: { userid: userid, text: text, imageURL: uniqueFilename},
-    })
+  }
+  res.json({ filename: uniqueFilename });
+
+  const post = await prisma.posts.create({
+    data: { userid: userid, text: text, imageURL: uniqueFilename },
+  })
 });
 
 app.get('/GetAllPosts', async (req, res) => {
   const posts = await prisma.posts.findMany({
     where: { parentId: null },   // 🔑 exclude replies
     include: {
-      poster: { select: { id: true, name: true, profileURL:true } },
+      poster: { select: { id: true, name: true, profileURL: true } },
       _count: { select: { likes: true } },
       likes: { select: { userid: true } },
     },
@@ -164,7 +168,7 @@ app.get('/GetAllPosts', async (req, res) => {
     posts.map(async (post) => ({
       ...post,
       imageURL: await getImageURL(post.imageURL),
-      
+
       poster: {
         ...post.poster,
         profileURL: await getImageURL(post.poster.profileURL) // ✅ now it's the actual string
@@ -172,7 +176,7 @@ app.get('/GetAllPosts', async (req, res) => {
     }))
   );
 
-  
+
 
   res.json(transformedPosts);
 });
@@ -189,14 +193,14 @@ app.get('/UserSpecific/:id', async (req, res) => {
       },
       include: {
         likes: {
-          select:{
+          select: {
             userid: true,
           },
         },
         poster: {
           select: {
-            name: true, 
-            profileURL:true,
+            name: true,
+            profileURL: true,
           },
         },
         _count: {
@@ -211,18 +215,18 @@ app.get('/UserSpecific/:id', async (req, res) => {
     });
 
     const transformedPosts = await Promise.all(
-    posts.map(async (post) => ({
-      ...post,
-      imageURL: await getImageURL(post.imageURL),
-      
-      poster: {
-        ...post.poster,
-        profileURL: await getImageURL(post.poster.profileURL) // ✅ now it's the actual string
-      }
-    }))
-  );
+      posts.map(async (post) => ({
+        ...post,
+        imageURL: await getImageURL(post.imageURL),
 
-    
+        poster: {
+          ...post.poster,
+          profileURL: await getImageURL(post.poster.profileURL) // ✅ now it's the actual string
+        }
+      }))
+    );
+
+
 
     res.json(transformedPosts);
   } catch (err) {
@@ -232,18 +236,22 @@ app.get('/UserSpecific/:id', async (req, res) => {
 });
 
 app.post('/LikeUnLike', async (req, res) => {
-  const {postid, userid} = req.body;
+  const { postid, userid } = req.body;
+
+  const post = await prisma.posts.findUnique({ where: { id: postid } });
+  const postOwnerId = post?.userid;
+
 
   const existingLike = await prisma.likes.findUnique({
-      where: {
-        userid_postid: {
-          userid,
-          postid: postid,
-        },
+    where: {
+      userid_postid: {
+        userid,
+        postid: postid,
       },
-    });
+    },
+  });
 
-  if (existingLike){
+  if (existingLike) {
     const like_delete = await prisma.likes.delete({
       where: {
         userid_postid: {
@@ -251,35 +259,53 @@ app.post('/LikeUnLike', async (req, res) => {
           postid: postid,
         },
       }
-    });    
+    });
 
     const setFalsePost = await prisma.posts.update({
       where: {
         id: postid,
       },
-      data: {likedByUser: false}
+      data: { likedByUser: false }
     });
   }
 
-  if(!existingLike){
+  if (!existingLike) {
     const like_create = await prisma.likes.create({
-      data: {userid: userid, postid: postid }
+      data: { userid: userid, postid: postid }
     })
 
     const setTruePost = await prisma.posts.update({
       where: {
         id: postid,
       },
-      data: {likedByUser: true}
+      data: { likedByUser: true }
     });
+
+    if (!post || !post.userid) {
+      console.error("Post not found, cannot create notification.");
+      return;
+    }
+
+    // Send notification for like
+    await prisma.notifications.create({
+      data: {
+        userId: Number(postOwnerId),
+        senderId: userid,
+        type: "like",
+        message: "liked your post",
+        targetPostId: postid
+      }
+    });
+
   }
 
 });
 
-app.get('/User/:id', async (req , res) => {
-    const Userid = parseInt(req.params.id);
+app.get('/User/:id', async (req, res) => {
+  const Userid = parseInt(req.params.id);
 
-    const User = await prisma.users.findUnique({where: {
+  const User = await prisma.users.findUnique({
+    where: {
       id: Userid,
     }
   });
@@ -307,15 +333,15 @@ app.get('/Get/Specific/Post/:id', async (req, res) => {
       },
     },
   });
-  
-  if(post){
+
+  if (post) {
     const imagePost = {
       ...post,
       imageURL: await getImageURL(post.imageURL),
     }
     res.json(imagePost);
   }
-  
+
 
   //res.json(post);
 });
@@ -331,24 +357,24 @@ app.post('/replies', upload.single("file"), async (req, res) => {
   try {
 
     let uniqueFilename = "";
-    if(file){
+    if (file) {
 
       let contentType = file?.mimetype;
       const ext = file.originalname.split(".").pop()?.toLowerCase();
 
-      if(ext == "mp4"){
+      if (ext == "mp4") {
         contentType = "video/mp4";
       }
-      
+
       uniqueFilename = `${uuidv4()}-${file?.originalname}`
 
       const command = new PutObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME,
         Key: uniqueFilename,
-        Body: file?.buffer, 
+        Body: file?.buffer,
         ContentType: contentType,
       });
-    
+
 
       await s3.send(command);
 
@@ -357,13 +383,39 @@ app.post('/replies', upload.single("file"), async (req, res) => {
     }
 
     const newReply = await prisma.posts.create({
-        data: { userid, text, parentId, imageURL: uniqueFilename },
-        include: {
-          poster: { select: { id: true, name: true } },
-          _count: { select: { likes: true } },
-          likes: { select: { userid: true } },
-        },
+      data: { userid, text, parentId, imageURL: uniqueFilename },
+      include: {
+        poster: { select: { id: true, name: true } },
+        _count: { select: { likes: true } },
+        likes: { select: { userid: true } },
+      },
+    });
+
+
+
+    // Find original post owner
+    const parentPost = await prisma.posts.findUnique({
+      where: { id: parentId },
+    });
+
+    if (!parentPost || parentPost.userid == null) {
+      console.error("Could not create reply notification: parentPost missing");
+      return;
+    }
+
+    // If replying to someone else, notify them
+    if (parentPost?.userid !== userid) {
+      await prisma.notifications.create({
+        data: {
+          userId: parentPost.userid,
+          senderId: userid,
+          type: "reply",
+          message: "replied to your post",
+          targetPostId: parentId
+        }
       });
+    }
+
 
     res.json(newReply);
   } catch (error) {
@@ -387,14 +439,14 @@ app.get('/replies/:id', async (req, res) => {
     },
   });
 
-  if(reply){
+  if (reply) {
     const transReply = {
       ...reply,
       imageURL: await getImageURL(reply.imageURL),
     }
     res.json(transReply);
   }
-  
+
 
   //res.json(transReply);
 });
@@ -427,45 +479,45 @@ app.delete('/replies/:id', async (req, res) => {
   res.json({ message: 'Reply deleted' });
 });
 app.post('/runCode', async (req, res) => {
-  const {language, code} = req.body;
+  const { language, code } = req.body;
   const start = performance.now();
   try {
     const PISTOOOONN = await fetch("https://emkc.org/api/v2/piston/execute", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      language: language,
-      version: "*",
-      files: [
-        {
-          content: code,
-        },
-      ],
-    }),
-  });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        language: language,
+        version: "*",
+        files: [
+          {
+            content: code,
+          },
+        ],
+      }),
+    });
 
-  const PistonOUTPUT = await PISTOOOONN.json();
-  const end = performance.now();
-  res.json({
-    output: PistonOUTPUT.run?.output || PistonOUTPUT.run?.stderr || "NOTHING",
-    runtime: end - start,
-    codeTime: PistonOUTPUT.run?.wall_time,
-  });
+    const PistonOUTPUT = await PISTOOOONN.json();
+    const end = performance.now();
+    res.json({
+      output: PistonOUTPUT.run?.output || PistonOUTPUT.run?.stderr || "NOTHING",
+      runtime: end - start,
+      codeTime: PistonOUTPUT.run?.wall_time,
+    });
 
-  } catch(err){
+  } catch (err) {
     console.error("ERROR ERROR", err);
-    res.status(500).json({error: "ERROR RUNNING TS!"});
+    res.status(500).json({ error: "ERROR RUNNING TS!" });
   }
-  
+
 
 
 });
 
 const getImageURL = async (filename: string) => {
 
-  if(filename == ""){
+  if (filename == "") {
     return "";
   }
   const command = new GetObjectCommand({
@@ -480,9 +532,9 @@ app.get('/get/image/:userId', async (req, res) => {
   const userId = parseInt(req.params.userId);
   const user = await prisma.users.findUnique({
     where: {
-      id: userId, 
-      
-    }, 
+      id: userId,
+
+    },
     select: {
       profileURL: true,
     },
@@ -490,8 +542,8 @@ app.get('/get/image/:userId', async (req, res) => {
   const filename = user?.profileURL || "";
 
   const result = await getImageURL(filename);
-  
-  res.json({url: result});
+
+  res.json({ url: result });
 });
 
 app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<void> => {
@@ -499,14 +551,14 @@ app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<
   const userid = parseInt(req.params.userId);
   try {
 
-    const file = req.file; 
+    const file = req.file;
     if (!file) res.status(400).json({ error: "No file uploaded" });
     const uniqueFilename = `${uuidv4()}-${file?.originalname}`
 
     const command = new PutObjectCommand({
       Bucket: process.env.S3_BUCKET_NAME,
       Key: uniqueFilename,
-      Body: file?.buffer, 
+      Body: file?.buffer,
       ContentType: file?.mimetype,
     });
 
@@ -519,15 +571,15 @@ app.post('/put/image/:userId', upload.single("file"), async (req, res): Promise<
     });
 
     res.json({ key: uniqueFilename });
-  } catch(err) {
+  } catch (err) {
 
   }
-  
+
 });
 
 app.get('/get/all/Problems', async (req, res) => {
 
-  const problems = await prisma.problems.findMany( {
+  const problems = await prisma.problems.findMany({
     orderBy: {
       id: 'asc',
     },
@@ -564,11 +616,11 @@ app.get('/get/specific/Problem/:id', async (req, res) => {
 
 });
 
-// ✅ FOLLOW
+//  FOLLOW
 app.post('/follow', async (req, res) => {
   try {
-    let { followerId, followingId } = req.body; 
-    followerId = parseInt(followerId); 
+    let { followerId, followingId } = req.body;
+    followerId = parseInt(followerId);
     followingId = parseInt(followingId);
 
     if (!followerId || !followingId) {
@@ -594,6 +646,17 @@ app.post('/follow', async (req, res) => {
       data: { followerId, followingId },
     });
 
+    // Create follow notification
+    await prisma.notifications.create({
+      data: {
+        userId: followingId,        // person being followed
+        senderId: followerId,       // the follower
+        type: "follow",
+        message: "started following you."
+      }
+    });
+
+
     res.status(201).json({ message: "Followed successfully", follow });
   } catch (error) {
     console.error(error);
@@ -601,7 +664,7 @@ app.post('/follow', async (req, res) => {
   }
 });
 
-// ✅ UNFOLLOW
+// UNFOLLOW
 app.post('/unfollow', async (req, res) => {
   try {
     let { followerId, followingId } = req.body;
@@ -684,7 +747,7 @@ app.get('/User/follows/list/:id', async (req, res) => {
 
 app.post('/create/Solved/problem/:id', async (req, res) => {
   const problemid = parseInt(req.params.id);
-  const {currentUserCode, userid, numSolved } = req.body;
+  const { currentUserCode, userid, numSolved } = req.body;
 
 
   const AlreadySolvedQ = await prisma.solvedProblems.findFirst({
@@ -693,10 +756,10 @@ app.post('/create/Solved/problem/:id', async (req, res) => {
     },
   })
 
-  if(!AlreadySolvedQ){
+  if (!AlreadySolvedQ) {
     const points = numSolved * 10;
     const updateUsersScore = await prisma.users.update({
-      
+
       where: {
         id: userid,
       },
@@ -709,9 +772,10 @@ app.post('/create/Solved/problem/:id', async (req, res) => {
   }
 
   const solvedProblem = await prisma.solvedProblems.create({
-    data: { currentUserCode,
-       userid, problemid, numSolved
-      }
+    data: {
+      currentUserCode,
+      userid, problemid, numSolved
+    }
   });
 
 
@@ -724,7 +788,7 @@ app.get('/grab/users/submitted/problems/:id', async (req, res) => {
   const submittedProblems = await prisma.solvedProblems.findMany({
     where: {
       userid: userid,
-      
+
     },
     orderBy: {
       createdAt: 'desc',
@@ -733,7 +797,7 @@ app.get('/grab/users/submitted/problems/:id', async (req, res) => {
     include: {
       problem: true,
     },
-    
+
   });
 
   res.json(submittedProblems);
@@ -750,7 +814,7 @@ app.get('/get/history/ofUsersSubmits/:id', async (req, res) => {
         id: solvedProblemid,
       }
     },
-    include:{
+    include: {
       problem: true,
     },
     orderBy: {
@@ -760,7 +824,254 @@ app.get('/get/history/ofUsersSubmits/:id', async (req, res) => {
 
   res.json(solvedProblems);
 });
-  
 
 
 
+//notifications:
+
+app.get('/notifications/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const notifications = await prisma.notifications.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        sender: { select: { id: true, name: true, profileURL: true } },
+      },
+    });
+
+    res.json(notifications);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch notifications" });
+  }
+});
+
+app.post('/notifications', async (req, res) => {
+  const { userId, senderId, type, message, targetPostId } = req.body;
+
+  try {
+    const note = await prisma.notifications.create({
+      data: {
+        userId,
+        senderId,
+        type,
+        message,
+        targetPostId,
+      },
+    });
+
+    res.json(note);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create notification" });
+  }
+});
+
+app.put('/notifications/read/:id', async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const updated = await prisma.notifications.update({
+      where: { id },
+      data: { isRead: true },
+    });
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update notification" });
+  }
+});
+
+
+//messaging:
+
+import type { Request, Response } from "express";
+
+app.post(
+  '/conversations',
+  async (
+    req: Request<{}, {}, { userIds: number[] }>,
+    res: Response
+  ) => {
+    try {
+      const { userIds } = req.body;
+
+      const conversation = await prisma.conversations.create({
+        data: {
+          participants: {
+            create: userIds.map((id: number) => ({ userId: id }))
+          }
+        },
+        include: {
+          participants: true
+        }
+      });
+
+      res.json(conversation);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed creating conversation' });
+    }
+  }
+);
+
+// import type { Request, Response } from "express";
+
+app.post(
+  "/conversations/start",
+  async (
+    req: Request<{}, {}, { user1Id: number; user2Id: number }>,
+    res: Response
+  ) => {
+    try {
+      const { user1Id, user2Id } = req.body;
+
+      if (!user1Id || !user2Id) {
+        res.status(400).json({ error: "Missing user IDs" });
+        return;
+      }
+
+      // 1. Check for an existing conversation with both users
+      const existing = await prisma.conversations.findFirst({
+        where: {
+          participants: {
+            some: { userId: user1Id },
+          },
+          AND: {
+            participants: {
+              some: { userId: user2Id },
+            },
+          },
+        },
+        include: {
+          participants: { include: { user: true } },
+        },
+      });
+
+      if (existing) {
+        res.json({ conversationId: existing.id, created: false });
+        return;
+      }
+
+      // 2. Create a new one
+      const newConversation = await prisma.conversations.create({
+        data: {
+          participants: {
+            create: [
+              { userId: user1Id },
+              { userId: user2Id },
+            ],
+          },
+        },
+        include: {
+          participants: { include: { user: true } },
+        },
+      });
+
+      res.json({ conversationId: newConversation.id, created: true });
+    } catch (error) {
+      console.error("Conversation start error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+
+
+
+app.get('/conversations/user/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  try {
+    const conversations = await prisma.conversations.findMany({
+      where: {
+        participants: {
+          some: { userId }
+        }
+      },
+      include: {
+        participants: {
+          include: {
+            user: { select: { id: true, name: true, profileURL: true } }
+          }
+        },
+        messages: {
+          orderBy: { createdAt: 'desc' },
+          take: 1, // latest message preview
+        }
+      }
+    });
+
+    res.json(conversations);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get conversations' });
+  }
+});
+
+app.post('/messages', async (req, res) => {
+  const { conversationId, senderId, content } = req.body;
+
+  try {
+    const msg = await prisma.messages.create({
+      data: { conversationId, senderId, content },
+    });
+
+    // Get other participant
+    const convo = await prisma.conversations.findUnique({
+      where: { id: conversationId },
+      include: { participants: true },
+    });
+
+    if (!convo) {
+      console.error("Conversation not found:", conversationId);
+      return; // or throw an error, or res.status(404)
+    }
+
+    // Who is receiving the message?
+    const recipient = convo.participants.find(p => p.userId !== senderId);
+
+    if (!recipient) {
+      console.error("No recipient found for conversation:", conversationId);
+      return;
+    }
+
+    if (recipient) {
+      await prisma.notifications.create({
+        data: {
+          userId: recipient.userId,
+          senderId: senderId,
+          type: "message",
+          message: content,
+        }
+      });
+    }
+
+
+    res.json(msg);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to send message" });
+  }
+});
+
+
+app.get('/messages/:conversationId', async (req, res) => {
+  const conversationId = parseInt(req.params.conversationId);
+
+  try {
+    const messages = await prisma.messages.findMany({
+      where: { conversationId },
+      orderBy: { createdAt: 'asc' },
+      include: {
+        sender: {
+          select: { id: true, name: true, profileURL: true }
+        }
+      }
+    });
+
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch messages' });
+  }
+});

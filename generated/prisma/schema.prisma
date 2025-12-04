@@ -32,6 +32,12 @@ model users {
   following Follows[] @relation("UserFollowing")
 
   solvedProblems SolvedProblems[]
+
+  receivedNotifications notifications[] @relation("NotificationRecipient")
+  notifications         notifications[] @relation("NotificationSender")
+
+  conversationParticipants ConversationParticipant[]
+  sentMessages             messages[]
 }
 
 model profiles {
@@ -126,4 +132,49 @@ model SolvedProblems {
 
   problem problems @relation(fields: [problemid], references: [id], onDelete: Cascade)
   solver  users    @relation(fields: [userid], references: [id], onDelete: Cascade)
+}
+
+model notifications {
+  id           Int      @id @default(autoincrement())
+  userId       Int // who receives it
+  senderId     Int? // who triggered it (like a follow or like)
+  type         String // "like", "follow", "reply", "message", etc.
+  message      String // readable description
+  targetPostId Int? // optional reference to posts
+  isRead       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  // user        users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   users  @relation("NotificationRecipient", fields: [userId], references: [id])
+  sender users? @relation("NotificationSender", fields: [senderId], references: [id])
+}
+
+model conversations {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  participants ConversationParticipant[]
+  messages     messages[]
+}
+
+model ConversationParticipant {
+  id             Int @id @default(autoincrement())
+  conversationId Int
+  userId         Int
+
+  conversation conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+}
+
+model messages {
+  id             Int      @id @default(autoincrement())
+  conversationId Int
+  senderId       Int
+  content        String
+  createdAt      DateTime @default(now())
+
+  conversation conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       users         @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
