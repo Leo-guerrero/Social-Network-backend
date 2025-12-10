@@ -236,7 +236,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\d4ves\\OneDrive\\Desktop\\code projects\\senior project\\backend\\generated\\prisma",
+      "value": "C:\\Users\\kingo\\fullStackProject\\backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -250,7 +250,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\d4ves\\OneDrive\\Desktop\\code projects\\senior project\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\kingo\\fullStackProject\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
