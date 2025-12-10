@@ -19,6 +19,7 @@ model users {
   email      String   @unique
   name       String
   password   String
+  score      Int      @default(0)
   createdAt  DateTime @default(now())
   profileURL String   @default("DefualtNoImageProfile.png")
 
@@ -26,6 +27,17 @@ model users {
   posts   posts[]
 
   likes likes[]
+
+  followers Follows[] @relation("UserFollowers")
+  following Follows[] @relation("UserFollowing")
+
+  solvedProblems SolvedProblems[]
+
+  receivedNotifications notifications[] @relation("NotificationRecipient")
+  notifications         notifications[] @relation("NotificationSender")
+
+  conversationParticipants ConversationParticipant[]
+  sentMessages             messages[]
 }
 
 model profiles {
@@ -79,6 +91,8 @@ model problems {
 
   answers   answers[]
   questions questions[]
+
+  solvedProblems SolvedProblems[]
 }
 
 model questions {
@@ -95,4 +109,72 @@ model answers {
   daAnswer    String   @default("")
   answerOrder Int //CURRENTLY from 0 - 5
   problem     problems @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+model Follows {
+  id          Int @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+
+  follower  users @relation("UserFollowing", fields: [followerId], references: [id])
+  following users @relation("UserFollowers", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId]) // prevents duplicates
+}
+
+model SolvedProblems {
+  id              Int      @id @default(autoincrement())
+  userid          Int
+  problemid       Int
+  numSolved       Int      @default(0)
+  currentUserCode String   @default("")
+  createdAt       DateTime @default(now())
+
+  problem problems @relation(fields: [problemid], references: [id], onDelete: Cascade)
+  solver  users    @relation(fields: [userid], references: [id], onDelete: Cascade)
+}
+
+model notifications {
+  id           Int      @id @default(autoincrement())
+  userId       Int // who receives it
+  senderId     Int? // who triggered it (like a follow or like)
+  type         String // "like", "follow", "reply", "message", etc.
+  message      String // readable description
+  targetPostId Int? // optional reference to posts
+  isRead       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  // user        users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   users  @relation("NotificationRecipient", fields: [userId], references: [id])
+  sender users? @relation("NotificationSender", fields: [senderId], references: [id])
+}
+
+model conversations {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  participants ConversationParticipant[]
+  messages     messages[]
+}
+
+model ConversationParticipant {
+  id             Int @id @default(autoincrement())
+  conversationId Int
+  userId         Int
+
+  conversation conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+}
+
+model messages {
+  id             Int      @id @default(autoincrement())
+  conversationId Int
+  senderId       Int
+  content        String
+  createdAt      DateTime @default(now())
+
+  conversation conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       users         @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }

@@ -125,6 +125,7 @@ exports.Prisma.UsersScalarFieldEnum = {
   email: 'email',
   name: 'name',
   password: 'password',
+  score: 'score',
   createdAt: 'createdAt',
   profileURL: 'profileURL'
 };
@@ -175,6 +176,51 @@ exports.Prisma.AnswersScalarFieldEnum = {
   answerOrder: 'answerOrder'
 };
 
+exports.Prisma.FollowsScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followingId: 'followingId'
+};
+
+exports.Prisma.SolvedProblemsScalarFieldEnum = {
+  id: 'id',
+  userid: 'userid',
+  problemid: 'problemid',
+  numSolved: 'numSolved',
+  currentUserCode: 'currentUserCode',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  senderId: 'senderId',
+  type: 'type',
+  message: 'message',
+  targetPostId: 'targetPostId',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ConversationsScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ConversationParticipantScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId'
+};
+
+exports.Prisma.MessagesScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  content: 'content',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,7 +244,13 @@ exports.Prisma.ModelName = {
   likes: 'likes',
   problems: 'problems',
   questions: 'questions',
-  answers: 'answers'
+  answers: 'answers',
+  Follows: 'Follows',
+  SolvedProblems: 'SolvedProblems',
+  notifications: 'notifications',
+  conversations: 'conversations',
+  ConversationParticipant: 'ConversationParticipant',
+  messages: 'messages'
 };
 
 /**
