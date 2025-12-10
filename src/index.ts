@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response, RequestHandler} from 'express';
 import cors from 'cors';
 import { PrismaClient } from '../generated/prisma';
 import { version } from 'os';
@@ -7,6 +7,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { v4 as uuidv4 } from "uuid";
 import multer from 'multer';
 import { profile } from 'console';
+import { buildSearchIndex, getSearchIndex } from "./searchIndex";
 const upload = multer();
 
 
@@ -108,9 +109,22 @@ app.post('/LoginCheck', async (request, response) => {
 
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+async function main() {
+  await buildSearchIndex(prisma); // load posts.text into elasticlunr
+
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+main().catch((err) => {
+  console.error("Fatal error starting server:", err);
+  process.exit(1);
 });
+
 
 app.post('/CreatePost/:id', upload.single('file'), async (req, res) =>{
     const userid = parseInt(req.params.id);
@@ -564,5 +578,124 @@ app.get('/get/specific/Problem/:id', async (req, res) => {
 
 });
 
+// Josue was here
+// GET /api/trending → top 5 most liked posts
+app.get("/api/trending", async (req, res) => {
+  try {
+    // Step 1: Query top-level posts ordered by like count
+    const posts = await prisma.posts.findMany({
+      where: { parentId: null },
+      take: 5,
+      orderBy: {
+        likes: { _count: "desc" },
+      },
+      select: {
+        id: true,
+        parentId: true,
+        userid: true,
+        text: true,
+        createdAt: true,
+        imageURL: true,
+
+        likes: {
+          select: { userid: true },
+        },
+
+        poster: {
+          select: {
+            id: true,
+            name: true,
+            profileURL: true,
+          },
+        },
+
+        _count: {
+          select: { likes: true },
+        },
+      },
+    });
+
+    // Step 2: Transform image URLs
+    const transformed = await Promise.all(
+      posts.map(async (post) => ({
+        ...post,
+
+        // Clean post image
+        imageURL: await getImageURL(post.imageURL),
+
+        // Clean user profile image
+        poster: {
+          ...post.poster,
+          profileURL: await getImageURL(post.poster.profileURL),
+        },
+      }))
+    );
+
+    res.json(transformed);
+  } catch (error) {
+    console.error("Error fetching trending posts:", error);
+    res.status(500).json({ error: "Failed to fetch trending posts" });
+  }
+});
 
 
+
+
+const searchHandler: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const q = String(req.query.q ?? "").trim();
+
+    if (!q) {
+      res.json({ results: [] });
+      return;
+    }
+
+    const index = getSearchIndex();
+
+    const hits = index.search(q, {
+      fields: { body: { boost: 1 } },
+      expand: true,
+    });
+
+    const ids = hits.map((hit: any) => Number(hit.ref));
+    if (ids.length === 0) {
+      res.json({ results: [] });
+      return;
+    }
+
+    const posts = await prisma.posts.findMany({
+      where: { id: { in: ids } },
+      include: {
+        poster: true,
+        _count: {
+          select: {
+            likes: true,
+            replies: true,
+          },
+        },
+      },
+    });
+
+    const byId = new Map<number, any>();
+    posts.forEach((p) => byId.set(p.id, p));
+
+    const results = hits
+      .map((hit: any) => {
+        const id = Number(hit.ref);
+        const post = byId.get(id);
+        if (!post) return null;
+        return {
+          ...post,
+          score: hit.score as number,
+        };
+      })
+      .filter(Boolean);
+
+    res.json({ results });
+  } catch (err) {
+    console.error("Search error:", err);
+    res.status(500).json({ error: "Search failed" });
+  }
+};
+
+app.get("/api/search", searchHandler);

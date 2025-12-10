@@ -19,17 +19,21 @@
     "aws-sdk": "^2.1692.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "elasticlunr": "^0.9.5",
     "express": "^5.1.0",
     "multer": "^2.0.2",
     "multer-s3": "^3.0.1",
+    "pg": "^8.16.3",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "@types/elasticlunr": "^0.9.9",
     "@types/express": "^5.0.3",
     "@types/multer": "^2.0.0",
     "@types/multer-s3": "^3.0.3",
     "@types/node": "^24.0.1",
+    "@types/pg": "^8.15.6",
     "prisma": "^6.9.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"

@@ -183,7 +183,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\kingo\\fullStackProject\\backend\\generated\\prisma",
+      "value": "C:\\Users\\josue\\Documents\\Development\\Thre Social Network\\backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -197,7 +197,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\kingo\\fullStackProject\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\josue\\Documents\\Development\\Thre Social Network\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
