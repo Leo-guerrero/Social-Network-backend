@@ -129,42 +129,103 @@ main().catch((err) => {
   process.exit(1);
 });
 
+// app.post('/CreatePost/:id', upload.single('file'), async (req, res) => {
+//   const userid = parseInt(req.params.id);
+
+//   const file = req.file;
+//   const { text } = req.body;
+
+//   let uniqueFilename = "";
+//   if (file) {
+
+//     let contentType = file?.mimetype;
+//     const ext = file.originalname.split(".").pop()?.toLowerCase();
+
+//     if (ext == "mp4") {
+//       contentType = "video/mp4";
+//     }
+
+//     uniqueFilename = `${uuidv4()}-${file?.originalname}`
+
+//     const command = new PutObjectCommand({
+//       Bucket: process.env.S3_BUCKET_NAME,
+//       Key: uniqueFilename,
+//       Body: file?.buffer,
+//       ContentType: contentType,
+//     });
+
+
+//     await s3.send(command);
+
+//     console.log("✅ Uploaded file:", uniqueFilename);
+//   }
+//   res.json({ filename: uniqueFilename });
+
+//   const post = await prisma.posts.create({
+//     data: { userid: userid, text: text, imageURL: uniqueFilename },
+//   })
+// });
+import { addPostToIndex } from "./searchIndex"; 
+// make sure this import is at the top of the file
+
 app.post('/CreatePost/:id', upload.single('file'), async (req, res) => {
-  const userid = parseInt(req.params.id);
+  try {
+    const userid = parseInt(req.params.id);
+    const file = req.file;
+    const { text } = req.body;
 
-  const file = req.file;
-  const { text } = req.body;
+    let uniqueFilename = "";
 
-  let uniqueFilename = "";
-  if (file) {
+    // 🔹 Upload file to S3 (if provided)
+    if (file) {
+      let contentType = file.mimetype;
+      const ext = file.originalname.split(".").pop()?.toLowerCase();
 
-    let contentType = file?.mimetype;
-    const ext = file.originalname.split(".").pop()?.toLowerCase();
+      if (ext === "mp4") {
+        contentType = "video/mp4";
+      }
 
-    if (ext == "mp4") {
-      contentType = "video/mp4";
+      uniqueFilename = `${uuidv4()}-${file.originalname}`;
+
+      const command = new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: uniqueFilename,
+        Body: file.buffer,
+        ContentType: contentType,
+      });
+
+      await s3.send(command);
+
+      console.log("✅ Uploaded file:", uniqueFilename);
     }
 
-    uniqueFilename = `${uuidv4()}-${file?.originalname}`
-
-    const command = new PutObjectCommand({
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: uniqueFilename,
-      Body: file?.buffer,
-      ContentType: contentType,
+    // 🔹 Create the post in the database
+    const post = await prisma.posts.create({
+      data: {
+        userid,
+        text,
+        imageURL: uniqueFilename,
+      },
+      include: {
+        poster: true,
+        _count: {
+          select: { likes: true, replies: true },
+        },
+      },
     });
 
+    // 🔹 Add the new post to the search index
+    addPostToIndex({ id: post.id, text: post.text });
 
-    await s3.send(command);
+    // 🔹 Return the FULL post to the frontend
+    res.json(post);
 
-    console.log("✅ Uploaded file:", uniqueFilename);
+  } catch (err) {
+    console.error("❌ Error creating post:", err);
+    res.status(500).json({ error: "Failed to create post" });
   }
-  res.json({ filename: uniqueFilename });
-
-  const post = await prisma.posts.create({
-    data: { userid: userid, text: text, imageURL: uniqueFilename },
-  })
 });
+
 
 app.get('/GetAllPosts', async (req, res) => {
   const posts = await prisma.posts.findMany({

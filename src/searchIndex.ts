@@ -1,6 +1,5 @@
 // backend/src/searchIndex.ts
 import elasticlunr from "elasticlunr";
-// 🔧 Use the same Prisma import path as in index.ts:
 import { PrismaClient } from "../generated/prisma";
 
 type Doc = {
@@ -8,7 +7,6 @@ type Doc = {
   body: string;
 };
 
-// in-memory index
 let searchIndex: any | null = null;
 
 export async function buildSearchIndex(prisma: PrismaClient) {
@@ -16,13 +14,12 @@ export async function buildSearchIndex(prisma: PrismaClient) {
     select: {
       id: true,
       text: true,
-      // 🔁 optional: only index root posts (ignore replies)
-      // parentId: true,
+      parentId: true, // if you want to filter replies later
     },
-    // where: { parentId: null }, // uncomment if you do NOT want replies in search
+    // If you only want root posts in search:
+    // where: { parentId: null },
   });
 
-  // Explicit type for `p` so TS is happy
   const docs: Doc[] = posts.map((p: { id: number; text: string | null }) => ({
     id: String(p.id),
     body: p.text ?? "",
@@ -31,7 +28,6 @@ export async function buildSearchIndex(prisma: PrismaClient) {
   const idx = elasticlunr(function (this: any) {
     this.setRef("id");
     this.addField("body");
-
     docs.forEach((doc) => this.addDoc(doc));
   });
 
@@ -44,4 +40,36 @@ export function getSearchIndex() {
     throw new Error("Search index not built yet");
   }
   return searchIndex;
+}
+
+/* 🔹 NEW: add a post to the index when created */
+export function addPostToIndex(post: { id: number; text: string | null }) {
+  if (!searchIndex) return; // index not ready yet
+
+  const body = post.text ?? "";
+  (searchIndex as any).addDoc({
+    id: String(post.id),
+    body,
+  });
+}
+
+/* 🔹 NEW: update a post in the index when edited */
+export function updatePostInIndex(post: { id: number; text: string | null }) {
+  if (!searchIndex) return;
+
+  const body = post.text ?? "";
+  (searchIndex as any).updateDoc({
+    id: String(post.id),
+    body,
+  });
+}
+
+/* 🔹 NEW: remove a post from the index when deleted */
+export function removePostFromIndex(postId: number) {
+  if (!searchIndex) return;
+
+  (searchIndex as any).removeDoc({
+    id: String(postId),
+    body: "", // not used, but required by elasticlunr
+  });
 }
